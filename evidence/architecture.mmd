@@ -1,0 +1,13 @@
+flowchart LR
+    User["Logged-out demo user"] --> DNS["Cloudflare DNS only"]
+    DNS --> Amplify["AWS Amplify static HTML/CSS/JS"]
+    Amplify --> URL["AWS Lambda Function URL"]
+    URL --> Agent["Gluevenir Bio<br/>one runtime agent"]
+    Secrets["AWS Secrets Manager<br/>runtime DSN + signing key"] --> Agent
+    Agent --> Gateway["AARM-inspired<br/>Memory Action Gateway"]
+    Gateway --> Policy["Deterministic policy<br/>ALLOW · DENY · MODIFY · STEP_UP · DEFER"]
+    Policy --> CRDB["CockroachDB Cloud<br/>RLS + vector memory + receipts"]
+    Policy --> Bedrock["Amazon Bedrock<br/>Titan embeddings · Nova Lite · Guardrail"]
+    Policy --> Signer["Ed25519 receipt signer"]
+    Signer --> CRDB
+    MCP["CockroachDB Cloud Managed MCP<br/>bounded read-only receipt inspection"] -.-> CRDB

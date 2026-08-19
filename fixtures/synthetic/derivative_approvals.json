@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "synthetic_data": true,
+  "description": "Three exact human-approved Argent Bridge Safe Derivative bindings for synthetic Gluevenir Bio data.",
+  "approvals": [
+    {
+      "approval_id": "30000000-0000-4000-8000-000000000001",
+      "tenant_id": "11111111-1111-4111-8111-111111111111",
+      "program_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "source_memory_id": "10000000-0000-4000-8000-000000000001",
+      "derivative_memory_id": "10000000-0000-4000-8000-000000000002",
+      "derivative_class": "stability_status",
+      "audience_display_name": "Argent Bridge Biologics",
+      "exact_derivative_text": "SYNTHETIC DATA: The Week 8 HX17-F3 stability review is complete and the approved Argent Bridge workstreams remain on schedule. Detailed formulation results are not approved for release.",
+      "source_content_sha256": "e87dc81a4f9011f9ae1ff23bb2d041ebaebcc2e3c1b706bc1cecb8eea2402499",
+      "derivative_content_sha256": "7059ac1623b0076f338fea61e25b34a23a7e813878fa0ea14866c0bfb4c48c9f",
+      "purpose_scopes": ["partner_status"],
+      "audience_scopes": ["partner-alpha-synthetic"],
+      "reviewer": {
+        "reviewer_id": "40000000-0000-4000-8000-000000000001",
+        "reviewer_handle": "human-lucia-chen-syn",
+        "reviewer_display_name": "Lucia Chen",
+        "reviewer_type": "human",
+        "authority": "synthetic-external-release-reviewer"
+      },
+      "status": "active",
+      "approved_at": "2026-08-15T16:00:00Z",
+      "expires_at": "2027-02-15T16:00:00Z",
+      "synthetic_data": true
+    },
+    {
+      "approval_id": "30000000-0000-4000-8000-000000000002",
+      "tenant_id": "11111111-1111-4111-8111-111111111111",
+      "program_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "source_memory_id": "10000000-0000-4000-8000-000000000011",
+      "derivative_memory_id": "10000000-0000-4000-8000-000000000012",
+      "derivative_class": "program_overview",
+      "audience_display_name": "Argent Bridge Biologics",
+      "exact_derivative_text": "SYNTHETIC DATA: HX-17 is recruiting under protocol HC-HX17-101 v1.3 at Harborlight Research Center Site SYN-03. Six of 24 anticipated participants are enrolled, and the approved Argent Bridge workstreams remain on schedule.",
+      "source_content_sha256": "93f89c0fbbd5b4e9043501b3684ed5252f6636c08ce24aefdbfcfb9b1b7a617a",
+      "derivative_content_sha256": "2cfa246c71461ba8a2a4050279bf9090ab7665f7f0f246fbbcfa80ef4f02111a",
+      "purpose_scopes": ["partner_status"],
+      "audience_scopes": ["partner-alpha-synthetic"],
+      "reviewer": {
+        "reviewer_id": "40000000-0000-4000-8000-000000000001",
+        "reviewer_handle": "human-lucia-chen-syn",
+        "reviewer_display_name": "Lucia Chen",
+        "reviewer_type": "human",
+        "authority": "synthetic-external-release-reviewer"
+      },
+      "status": "active",
+      "approved_at": "2026-08-15T16:00:00Z",
+      "expires_at": "2027-02-15T16:00:00Z",
+      "synthetic_data": true
+    },
+    {
+      "approval_id": "30000000-0000-4000-8000-000000000003",
+      "tenant_id": "11111111-1111-4111-8111-111111111111",
+      "program_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "source_memory_id": "10000000-0000-4000-8000-000000000023",
+      "derivative_memory_id": "10000000-0000-4000-8000-000000000024",
+      "derivative_class": "cohort_status",
+      "audience_display_name": "Argent Bridge Biologics",
+      "exact_derivative_text": "SYNTHETIC DATA: The HX-17 cohort-planning workflow remains on schedule. The Day 42 visit change does not alter the approved Argent Bridge timeline; no participant-level details are approved for release.",
+      "source_content_sha256": "93eb5b95b7eb7e4922b532c08af230c4f4d831ac21122134f41857f4128d668b",
+      "derivative_content_sha256": "e09368489685e06e300c6f4c2d5266fa2b13ef4c7ff4ff39204d5187c6939c7d",
+      "purpose_scopes": ["partner_status"],
+      "audience_scopes": ["partner-alpha-synthetic"],
+      "reviewer": {
+        "reviewer_id": "40000000-0000-4000-8000-000000000001",
+        "reviewer_handle": "human-lucia-chen-syn",
+        "reviewer_display_name": "Lucia Chen",
+        "reviewer_type": "human",
+        "authority": "synthetic-external-release-reviewer"
+      },
+      "status": "active",
+      "approved_at": "2026-08-15T16:00:00Z",
+      "expires_at": "2027-02-15T16:00:00Z",
+      "synthetic_data": true
+    }
+  ]
+}

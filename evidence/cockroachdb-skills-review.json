@@ -1,0 +1,166 @@
+{
+  "artifact_type": "cockroachdb_agent_skills_build_review",
+  "claim_boundary": {
+    "copied_into_repository": false,
+    "runtime_integration": false,
+    "sponsor_tool_claim": false,
+    "usage": "build-time architecture, security, migration, and operations review"
+  },
+  "generated_at": "2026-08-16T14:20:10Z",
+  "live_checks": {
+    "background_jobs": {
+      "failed": 0,
+      "paused": 0,
+      "running": 0,
+      "window_hours": 24
+    },
+    "cluster": {
+      "cloud_provider": "AWS",
+      "plan": "BASIC",
+      "state": "CREATED",
+      "version": "v26.2.5"
+    },
+    "managed_mcp_boundary": {
+      "crdb_internal_access": false,
+      "show_grants_access": false,
+      "show_jobs_access": false,
+      "show_statistics_access": false
+    },
+    "optimizer_statistics": {
+      "automatic_collection_enabled": true,
+      "estimated_memory_rows": 9,
+      "statistics_present": true
+    },
+    "privileges": {
+      "public_application_table_dml_grants": 0,
+      "runtime_role_has_broad_table_dml": true
+    },
+    "runtime_activity": {
+      "long_running_transactions_over_five_minutes": 0,
+      "running_queries_at_check": 0
+    },
+    "vector_plans": {
+      "operational_fixture": {
+        "record_count": 9,
+        "selected_index": "memory_records_tenant_program_id_key",
+        "tenant_and_program_prefix_spans": true,
+        "vector_search_operator": false
+      },
+      "representative_disposable_corpus": {
+        "cleaned_up": true,
+        "record_count": 512,
+        "tenant_and_program_prefix_spans": true,
+        "vector_index_created_before_records": true,
+        "vector_index_named_in_plan": true,
+        "vector_search_operator": true
+      }
+    }
+  },
+  "reviewed_source_commit": "6dd9e96973a9eb239efba031a45f985bbc30b941",
+  "schema_version": "gluevenir-cockroachdb-skills-review-v1",
+  "skills": [
+    {
+      "added_value": "Confirmed bounded official retries, short database-only callbacks, parameter binding, UUID keys, and selective locking; identified a production snapshot boundary between recall and receipt persistence.",
+      "disposition": "verified_with_production_follow_up",
+      "name": "designing-application-transactions",
+      "surface": "runtime transactions"
+    },
+    {
+      "added_value": "Compared the current guarded multi-statement flows with single-statement patterns and found no submission-scale rewrite justified; reserved contention benchmarking for a dedicated non-production environment.",
+      "disposition": "evaluated_and_deferred",
+      "name": "benchmarking-transaction-patterns",
+      "surface": "performance methodology"
+    },
+    {
+      "added_value": "Required live EXPLAIN evidence, exposed the honest tiny-corpus exact-scan behavior, and produced a representative 512-row proof with a vector-search operator and both authorization prefixes.",
+      "disposition": "verified_and_improved_evidence",
+      "name": "cockroachdb-sql",
+      "surface": "schema and vector recall"
+    },
+    {
+      "added_value": "Verified zero PUBLIC data grants and the non-owner RLS design; identified broader-than-needed runtime table DML as a production hardening item.",
+      "disposition": "verified_with_production_follow_up",
+      "name": "hardening-user-privileges",
+      "surface": "database authorization"
+    },
+    {
+      "added_value": "Verified the available Cloud, TLS, role, and backup posture while explicitly recording that MCP and an unauthenticated ccloud session cannot prove IP allowlists, SSO, SCIM, CMEK, or audit-log configuration.",
+      "disposition": "partially_verified",
+      "name": "auditing-cloud-cluster-security",
+      "surface": "cloud security"
+    },
+    {
+      "added_value": "Confirmed CockroachDB Cloud TLS and reviewed the runtime's verify-full CA-pinned connection construction; no certificate mutation was needed.",
+      "disposition": "verified",
+      "name": "managing-tls-certificates",
+      "surface": "transport security"
+    },
+    {
+      "added_value": "Verified a running Basic cluster, live connectivity, current version, no active query at sampling time, and no failed or paused recent jobs.",
+      "disposition": "verified",
+      "name": "reviewing-cluster-health",
+      "surface": "pre-release operations"
+    },
+    {
+      "added_value": "Inspected only aggregate, content-safe historical statement statistics and confirmed the telemetry mixes development probes, preventing an unsupported production-performance claim.",
+      "disposition": "verified_no_claim",
+      "name": "profiling-statement-fingerprints",
+      "surface": "historical SQL performance"
+    },
+    {
+      "added_value": "Checked aggregate transaction statistics without selecting statement text; the current window did not provide attributable transaction fingerprints, so no retry-performance claim is made.",
+      "disposition": "verified_no_claim",
+      "name": "profiling-transaction-fingerprints",
+      "surface": "transaction performance"
+    },
+    {
+      "added_value": "Classified current migration backfills as trivial at nine rows and added a future gate: estimate storage before large index, primary-key, materialized-view, or locality changes.",
+      "disposition": "evaluated_and_deferred",
+      "name": "analyzing-schema-change-storage-risk",
+      "surface": "migration safety"
+    },
+    {
+      "added_value": "Verified automatic statistics collection and fresh statistics for the vector table, strengthening the explanation of the optimizer's tiny-corpus plan choice.",
+      "disposition": "verified",
+      "name": "auditing-table-statistics",
+      "surface": "optimizer health"
+    },
+    {
+      "added_value": "Verified no failed, paused, or running background jobs in the last 24 hours and defined a post-migration job check for future deployment automation.",
+      "disposition": "verified_and_informed_ci",
+      "name": "monitoring-background-jobs",
+      "surface": "migration operations"
+    },
+    {
+      "added_value": "Verified no long-running transactions and no active query at the bounded sampling point without selecting query text or canceling work.",
+      "disposition": "verified",
+      "name": "triaging-live-sql-activity",
+      "surface": "live SQL safety"
+    },
+    {
+      "added_value": "Compared the six-minute offline CI gate with an official local cluster workflow and defined a separate disposable CockroachDB integration lane rather than slowing or credentialing pull-request CI.",
+      "disposition": "evaluated_and_informed_ci",
+      "name": "setting-up-local-cluster",
+      "surface": "CI and developer environment"
+    }
+  ],
+  "skills_source": {
+    "commit": "e14e86d23ce8ee2e7e40a34ce2944c2502b6eadd",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/cockroachlabs/cockroachdb-skills"
+  },
+  "summary": {
+    "applied_skill_count": 14,
+    "highest_value_changes": [
+      "honest two-scale vector-plan evidence",
+      "PUBLIC privilege and runtime-grant review",
+      "statistics and background-job verification",
+      "a bounded disposable-database CI and migration backlog"
+    ],
+    "runtime_sponsor_tools_unchanged": [
+      "Distributed Vector Indexing",
+      "CockroachDB Cloud Managed MCP"
+    ]
+  },
+  "synthetic_data": true
+}

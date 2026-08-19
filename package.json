@@ -1,0 +1,12 @@
+{
+  "name": "gluevenir-infrastructure",
+  "private": true,
+  "scripts": {
+    "cdk": "cdk",
+    "diff": "cdk diff",
+    "synth": "cdk synth"
+  },
+  "devDependencies": {
+    "aws-cdk": "2.1133.0"
+  }
+}

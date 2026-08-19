@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="628" viewBox="0 0 1200 628" role="img" aria-labelledby="title description">
+  <title id="title">Gluevenir Bio | Critical Context. Controlled Recall.</title>
+  <desc id="description">Dark ObsidianTek social preview for the synthetic governed-memory demonstration.</desc>
+  <defs>
+    <radialGradient id="red-glow" cx="0" cy="0" r="1" gradientTransform="translate(950 70) rotate(132) scale(500 380)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b42026" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#b42026" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#fff" stroke-opacity=".035"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="628" fill="#07080a"/>
+  <rect width="1200" height="628" fill="url(#red-glow)"/>
+  <rect width="1200" height="628" fill="url(#grid)"/>
+  <rect x="42" y="42" width="1116" height="544" rx="30" fill="#0d0e12" fill-opacity=".72" stroke="#fff" stroke-opacity=".13"/>
+  <g transform="translate(84 82)">
+    <path d="M19 8 40 29 19 50M40 29h21" fill="none" stroke="#f6f5f1" stroke-opacity=".48" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M19 50 40 29h21" fill="none" stroke="#ef5559" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="m19 0 9 5v10l-9 5-9-5V5l9-5Z" fill="#121318" stroke="#f6f5f1" stroke-width="2.5"/>
+    <path d="m19 40 9 5v10l-9 5-9-5V45l9-5Z" fill="#121318" stroke="#ef5559" stroke-width="3"/>
+    <path d="m61 19 9 5v10l-9 5-9-5V24l9-5Z" fill="#121318" stroke="#ef5559" stroke-width="3"/>
+    <circle cx="40" cy="29" r="7" fill="#f6f5f1"/>
+    <circle cx="40" cy="29" r="3" fill="#b42026"/>
+  </g>
+  <text x="174" y="116" fill="#f6f5f1" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">GLUEVENIR BIO</text>
+  <text x="84" y="252" fill="#f6f5f1" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">Critical Context.</text>
+  <text x="84" y="326" fill="#ef5559" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">Controlled Recall.</text>
+  <text x="86" y="385" fill="#b4b5ba" font-family="Arial, Helvetica, sans-serif" font-size="25">Useful memory reaches the model. Restricted context does not.</text>
+  <g transform="translate(739 170)">
+    <path d="M32 36 196 136 326 46" fill="none" stroke="#f6f5f1" stroke-opacity=".25" stroke-width="5" stroke-linecap="round"/>
+    <path d="M32 36 196 136 326 46" fill="none" stroke="#ef5559" stroke-width="8" stroke-linecap="round" stroke-dasharray="80 18 132 22 90"/>
+    <circle cx="32" cy="36" r="26" fill="#111217" stroke="#f6f5f1" stroke-opacity=".58" stroke-width="3"/>
+    <circle cx="196" cy="136" r="31" fill="#111217" stroke="#ef5559" stroke-width="4"/>
+    <circle cx="326" cy="46" r="26" fill="#111217" stroke="#ef5559" stroke-width="3"/>
+    <circle cx="196" cy="136" r="8" fill="#ef5559"/>
+    <text x="0" y="92" fill="#85878e" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">CONTEXT</text>
+    <text x="150" y="195" fill="#ef5559" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">GOVERN</text>
+    <text x="292" y="102" fill="#85878e" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">RECALL</text>
+  </g>
+  <rect x="84" y="482" width="184" height="40" rx="20" fill="#b42026" fill-opacity=".18" stroke="#ef5559" stroke-opacity=".65"/>
+  <text x="112" y="508" fill="#f6f5f1" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">SYNTHETIC DEMO</text>
+  <text x="930" y="518" fill="#f6f5f1" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">OBSIDIANTEK</text>
+  <text x="930" y="546" fill="#85878e" font-family="Arial, Helvetica, sans-serif" font-size="16">Secure agent systems</text>
+</svg>

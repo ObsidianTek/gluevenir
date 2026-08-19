@@ -1,0 +1,89 @@
+extensions:
+  health_check:
+    endpoint: 127.0.0.1:13133
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:4318
+
+connectors:
+  spanmetrics:
+    aggregation_temporality: AGGREGATION_TEMPORALITY_CUMULATIVE
+    dimensions:
+      - name: gluevenir.stage
+      - name: gluevenir.status
+      - name: gluevenir.decision
+      - name: gluevenir.operation
+      - name: gluevenir.persona
+      - name: gluevenir.reason_code
+      - name: gluevenir.receipt_verified
+      - name: gluevenir.candidate_count
+      - name: gluevenir.included_count
+      - name: gluevenir.excluded_count
+      - name: gluevenir.model_invoked
+    exemplars:
+      enabled: false
+    histogram:
+      explicit:
+        buckets: [10ms, 25ms, 50ms, 100ms, 250ms, 500ms, 1s, 2s, 5s]
+    metrics_flush_interval: 5s
+
+processors:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 256
+    spike_limit_mib: 64
+  filter/synthetic_only:
+    error_mode: propagate
+    traces:
+      span:
+        - 'resource.attributes["gluevenir.synthetic_telemetry_only"] != true'
+        - 'resource.attributes["service.name"] != "gluevenir-bio"'
+        - 'not IsMatch(name, "^gluevenir\\.(request|gateway\\.evaluation|recall|approval|model|output\\.scan|receipt|pending\\.resolution|response\\.projection)$")'
+        - 'attributes["gluevenir.persona"] != nil and not IsMatch(attributes["gluevenir.persona"], "^(program_lead|formulation_scientist|clinical_operations_lead|authorized_external_partner)$")'
+        - 'attributes["gluevenir.operation"] != nil and not IsMatch(attributes["gluevenir.operation"], "^(REMEMBER|RECALL|USE|SHARE|REVOKE|FORGET)$")'
+        - 'attributes["gluevenir.decision"] != nil and not IsMatch(attributes["gluevenir.decision"], "^(ALLOW|MODIFY|STEP_UP|DEFER|DENY)$")'
+        - 'attributes["gluevenir.status"] != nil and not IsMatch(attributes["gluevenir.status"], "^(succeeded|denied|pending|failed|unavailable)$")'
+        - 'attributes["gluevenir.reason_code"] != nil and not IsMatch(attributes["gluevenir.reason_code"], "^(INTERNAL_POLICY_ALLOW|EXTERNAL_APPROVED_ALLOW|EXACT_APPROVED_DERIVATIVE|HUMAN_APPROVAL_REQUIRED|REQUIRED_CONTEXT_MISSING|IDENTITY_DENIED|POLICY_UNAVAILABLE|POLICY_VERSION_INVALID|EXTERNAL_ACTION_DENIED|APPROVAL_INVALID|PENDING_CAPACITY|PENDING_TIMEOUT|PENDING_REJECTED|PENDING_UNRESOLVED|PENDING_ARGUMENTS_MISMATCH)$")'
+      spanevent:
+        - 'true'
+  transform/content_safe:
+    error_mode: propagate
+    trace_statements:
+      - context: resource
+        statements:
+          - 'keep_keys(attributes, ["service.name", "deployment.environment.name", "gluevenir.synthetic_telemetry_only"])'
+      - context: span
+        statements:
+          - 'set(links, [])'
+          - 'keep_keys(attributes, ["gluevenir.sequence", "gluevenir.stage", "gluevenir.status", "gluevenir.duration_ms", "gluevenir.persona", "gluevenir.operation", "gluevenir.decision", "gluevenir.reason_code", "gluevenir.candidate_count", "gluevenir.included_count", "gluevenir.excluded_count", "gluevenir.model_invoked", "gluevenir.receipt_verified"])'
+  batch:
+    send_batch_size: 128
+    send_batch_max_size: 256
+    timeout: 1s
+
+exporters:
+  otlphttp/jaeger:
+    endpoint: http://127.0.0.1:14318
+  prometheus:
+    endpoint: 127.0.0.1:8889
+    enable_open_metrics: true
+    resource_to_telemetry_conversion:
+      enabled: false
+
+service:
+  extensions: [health_check]
+  telemetry:
+    logs:
+      level: error
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, filter/synthetic_only, transform/content_safe, batch]
+      exporters: [otlphttp/jaeger, spanmetrics]
+    metrics:
+      receivers: [spanmetrics]
+      processors: [memory_limiter, batch]
+      exporters: [prometheus]

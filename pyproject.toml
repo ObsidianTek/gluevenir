@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gluevenir"
+version = "0.1.0"
+description = "A governed persistent-memory framework for AI agents"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [{ name = "Gluevenir contributors" }]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "boto3>=1.42,<2",
+  "cryptography>=45,<47",
+  "opentelemetry-exporter-otlp-proto-http>=1.38,<2",
+  "opentelemetry-sdk>=1.38,<2",
+  "presidio-analyzer==2.2.360",
+  "psycopg[binary]>=3.2,<4",
+  "sqlalchemy>=2.0,<2.1",
+  "sqlalchemy-cockroachdb>=2.0.4,<3",
+]
+
+[dependency-groups]
+dev = [
+  "alembic>=1.18,<2",
+  "aws-cdk-lib==2.261.0",
+  "build>=1.2,<2",
+  "constructs>=10.4,<11",
+  "hatchling>=1.27,<2",
+  "pytest>=8.3,<9",
+  "ruff>=0.11,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gluevenir"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/LICENSE", "/README.md", "/pyproject.toml", "/src"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-config --strict-markers"
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "UP"]

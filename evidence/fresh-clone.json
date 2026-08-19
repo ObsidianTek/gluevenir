@@ -1,0 +1,20 @@
+{
+  "artifact_type": "fresh_clone_verification",
+  "checks": {
+    "cdk_synthesis": "passed",
+    "isolated_wheel_import": "passed",
+    "locked_cdk_install": "passed",
+    "locked_python_install": "passed",
+    "offline_tests": "passed",
+    "package_build": "passed",
+    "repository_verification": "passed",
+    "ruff_format": "passed",
+    "ruff_lint": "passed",
+    "working_tree_clean": true
+  },
+  "commit_sha": "4ed7fd21cc5d6900b23a1d11382c23c035d71618",
+  "generated_at": "2026-08-18T14:07:28Z",
+  "redaction_status": "passed",
+  "schema_version": "gluevenir-fresh-clone-v1",
+  "synthetic_data": true
+}

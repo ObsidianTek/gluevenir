@@ -1,0 +1,221 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gluevenir.obsidiantek.io/schemas/control-selection.schema.json",
+  "title": "Gluevenir public-safe control selection",
+  "description": "Framework-neutral input for selected control identifiers, contribution categories, and Gluevenir-authored interpretations. Licensed control text and control titles are intentionally not represented.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "last_modified",
+    "document_version",
+    "synthetic_data",
+    "public_safe",
+    "component",
+    "frameworks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "last_modified": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "document_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "synthetic_data": {
+      "const": true
+    },
+    "public_safe": {
+      "const": true
+    },
+    "component": {
+      "$ref": "#/definitions/component"
+    },
+    "frameworks": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/definitions/framework"
+      }
+    }
+  },
+  "definitions": {
+    "token": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9._-]*$"
+    },
+    "nonemptyLine": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^\\r\\n]+$"
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "type",
+        "description",
+        "claim_boundary"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/nonemptyLine"
+        },
+        "type": {
+          "enum": [
+            "software",
+            "service"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_boundary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "framework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "version",
+        "reference",
+        "controls"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/token"
+        },
+        "name": {
+          "$ref": "#/definitions/nonemptyLine"
+        },
+        "version": {
+          "$ref": "#/definitions/nonemptyLine"
+        },
+        "reference": {
+          "type": "string",
+          "format": "uri"
+        },
+        "controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/controlSelection"
+          }
+        }
+      }
+    },
+    "controlSelection": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/acceptedControl"
+        },
+        {
+          "$ref": "#/definitions/unselectedControl"
+        }
+      ]
+    },
+    "acceptedControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "contributions",
+        "project_interpretation",
+        "public_interpretation",
+        "evidence",
+        "limitations"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/token"
+        },
+        "status": {
+          "const": "accepted"
+        },
+        "contributions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "provides_evidence",
+              "helps_implement_guidance",
+              "satisfies_deployment_technical_control",
+              "aarm_aiuc_runtime_protection"
+            ]
+          }
+        },
+        "project_interpretation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "public_interpretation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/evidenceReference"
+          }
+        },
+        "limitations": {
+          "$ref": "#/definitions/nonemptyLine"
+        }
+      }
+    },
+    "unselectedControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/token"
+        },
+        "status": {
+          "enum": [
+            "excluded",
+            "pending"
+          ]
+        }
+      }
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "href"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/token"
+        },
+        "description": {
+          "$ref": "#/definitions/nonemptyLine"
+        },
+        "href": {
+          "type": "string",
+          "format": "uri-reference"
+        }
+      }
+    }
+  }
+}

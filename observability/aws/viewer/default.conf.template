@@ -1,0 +1,130 @@
+map_hash_bucket_size 128;
+
+map $http_authorization $gluevenir_otlp_authorized {
+    default 0;
+    "Bearer ${GLUEVENIR_OTLP_BEARER_TOKEN}" 1;
+}
+
+server {
+    listen 8080;
+    server_name _;
+    server_tokens off;
+
+    client_body_timeout 5s;
+    client_header_timeout 5s;
+    keepalive_timeout 10s;
+    send_timeout 10s;
+
+    add_header Content-Security-Policy "default-src 'self'; connect-src 'self'; font-src 'self' data:; img-src 'self' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline' blob:; worker-src 'self' blob:; frame-ancestors https://gluevenir.obsidiantek.io https://production.d2v1tx01e3zvx8.amplifyapp.com; base-uri 'self'; form-action 'none'" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" always;
+    add_header Referrer-Policy "no-referrer" always;
+    add_header X-Content-Type-Options "nosniff" always;
+
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    # Exactly five intentionally public, read-only Grafana shares: one overview
+    # and four fixed server-persona views. Grafana public shares do not support
+    # dashboard variables, so no browser input selects a persona query.
+    location ~ "^/public-dashboards/(9e978d5eafa627ea61946044a80f3a41|9ab2bc2d01e29b2c642e14ccba48b9de|df2d55ae6508a21e8f5f0a083cb455ed|ba2e6408c254887fc6567c71efa533f0|e8827e00c81371176c524f34461e67d8)/?$" {
+        limit_except GET HEAD { deny all; }
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+
+    location ~ "^/api/public/dashboards/(9e978d5eafa627ea61946044a80f3a41|9ab2bc2d01e29b2c642e14ccba48b9de|df2d55ae6508a21e8f5f0a083cb455ed|ba2e6408c254887fc6567c71efa533f0|e8827e00c81371176c524f34461e67d8)/?$" {
+        limit_except GET HEAD { deny all; }
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+
+    # Grafana 11.6 refreshes this endpoint even when the public share has
+    # annotations disabled. Keep it token-scoped so the empty, read-only
+    # response cannot become a general Grafana API route.
+    location ~ "^/api/public/dashboards/(9e978d5eafa627ea61946044a80f3a41|9ab2bc2d01e29b2c642e14ccba48b9de|df2d55ae6508a21e8f5f0a083cb455ed|ba2e6408c254887fc6567c71efa533f0|e8827e00c81371176c524f34461e67d8)/annotations$" {
+        limit_except GET HEAD { deny all; }
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+
+    # Grafana's public-dashboard API executes only the stored panel query. It is
+    # deliberately not Grafana's arbitrary datasource-query surface.
+    location ~ "^/api/public/dashboards/(9e978d5eafa627ea61946044a80f3a41|9ab2bc2d01e29b2c642e14ccba48b9de|df2d55ae6508a21e8f5f0a083cb455ed|ba2e6408c254887fc6567c71efa533f0|e8827e00c81371176c524f34461e67d8)/panels/[0-9]{1,6}/query$" {
+        limit_except POST { deny all; }
+        client_max_body_size 16k;
+        proxy_request_buffering on;
+        proxy_buffering off;
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+
+    location ~ "^/public/(build|fonts|img)/[A-Za-z0-9_./@-]{1,384}$" {
+        limit_except GET HEAD { deny all; }
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+
+    # Jaeger query/UI is read-only on port 16686. Ingestion remains on the
+    # task-local OTLP port and is reachable only through the authenticated route.
+    location = /traces {
+        limit_except GET HEAD { deny all; }
+        return 308 /jaeger/;
+    }
+
+    location = /traces/ {
+        limit_except GET HEAD { deny all; }
+        return 308 /jaeger/;
+    }
+
+    location = /jaeger {
+        limit_except GET HEAD { deny all; }
+        return 308 /jaeger/;
+    }
+
+    location ^~ /jaeger/ {
+        limit_except GET HEAD { deny all; }
+        # Jaeger v2 injects two inline bootstrap scripts into its read-only UI.
+        # Scope this exception to the Jaeger path instead of weakening the
+        # Grafana or default response policy.
+        add_header Content-Security-Policy "default-src 'self'; connect-src 'self'; font-src 'self' data:; img-src 'self' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-ancestors https://gluevenir.obsidiantek.io https://production.d2v1tx01e3zvx8.amplifyapp.com; base-uri 'self'; form-action 'none'" always;
+        add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" always;
+        add_header Referrer-Policy "no-referrer" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        proxy_pass http://127.0.0.1:16686;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+
+    location = /otlp/v1/traces {
+        limit_except POST { deny all; }
+        if ($gluevenir_otlp_authorized = 0) { return 401; }
+        client_max_body_size 64k;
+        proxy_request_buffering on;
+        proxy_buffering off;
+        proxy_connect_timeout 2s;
+        proxy_read_timeout 5s;
+        proxy_send_timeout 5s;
+        proxy_pass http://127.0.0.1:4318/v1/traces;
+        proxy_set_header Authorization "";
+        proxy_set_header Content-Type $content_type;
+        proxy_set_header Host 127.0.0.1;
+    }
+
+    location / {
+        return 404;
+    }
+}

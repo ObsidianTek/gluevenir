@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "synthetic_data": true,
+  "description": "Authoritative public references used only for generic synthetic record structure and terminology in Gluevenir Bio.",
+  "use_boundary": "These sources informed generic structure and vocabulary only. They do not supply program facts, participant data, study results, approvals, or claims; they do not endorse Gluevenir, ObsidianTek, HelixCure, HX-17, or this demonstration.",
+  "sources": [
+    {
+      "source_id": "fda-m11",
+      "publisher": "U.S. Food and Drug Administration",
+      "title": "M11 Clinical electronic Structured Harmonised Protocol materials",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/m11-clinical-electronic-structured-harmonised-protocol",
+      "used_for": ["protocol identifier, version, and effective-date rhythm", "objectives, outcomes, roles, and amendment structure"],
+      "not_used_for": ["M11 text or sample content", "a conformance claim", "real sponsor or study facts"],
+      "generic_structure_only": true,
+      "endorsement": false
+    },
+    {
+      "source_id": "clinicaltrials-protocol-definitions",
+      "publisher": "ClinicalTrials.gov",
+      "title": "Protocol Registration Data Element Definitions",
+      "url": "https://clinicaltrials.gov/policy/protocol-definitions",
+      "used_for": ["study type, phase, purpose, model, allocation, and masking fields", "enrollment type and count, milestone dates, site status, contacts, and verification date"],
+      "not_used_for": ["a copied study record", "an NCT identifier", "a real facility or contact", "a registration claim"],
+      "generic_structure_only": true,
+      "endorsement": false
+    },
+    {
+      "source_id": "fda-ich-q5c",
+      "publisher": "U.S. Food and Drug Administration",
+      "title": "Q5C Quality of Biotechnological Products: Stability Testing of Biotechnological/Biological Products",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q5c-quality-biotechnological-products-stability-testing-biotechnologicalbiological-products",
+      "used_for": ["formulation, lot, container closure, storage condition, and pull-point fields", "criterion, observed value, unit, disposition, deviation, review state, and next-pull rhythm"],
+      "not_used_for": ["guidance text", "validated specifications", "real product facts", "a regulatory or compliance determination"],
+      "generic_structure_only": true,
+      "endorsement": false
+    },
+    {
+      "source_id": "nih-protocol-template",
+      "publisher": "U.S. National Institutes of Health",
+      "title": "Clinical Trial Protocol Template",
+      "url": "https://www.grants.nih.gov/policy-and-compliance/policy-topics/clinical-trials/protocol-template",
+      "used_for": ["protocol synopsis, objectives, design, visit schedule, safety, data-handling, and monitoring rhythm", "version history and role labels"],
+      "not_used_for": ["template wording", "institutional endorsement", "a clinical-protocol claim"],
+      "generic_structure_only": true,
+      "endorsement": false
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "claim_boundary": "Selected implementation evidence only; this prototype does not claim AIUC-1 certification, conformance, readiness, assessment, or audit readiness.",
+  "framework": "AIUC-1",
+  "mappings": [
+    {
+      "control": "A003.1",
+      "feature": "Context-bound memory recall",
+      "implementation": [
+        "tenant and program predicates",
+        "room, purpose, audience, state, and lifecycle filters",
+        "bounded intent and prior-receipt context"
+      ],
+      "source": "https://www.aiuc-1.com/data-and-privacy/implement-contextual-data-safeguards",
+      "status": "implemented"
+    },
+    {
+      "control": "A004",
+      "feature": "Confidential-information controls",
+      "implementation": [
+        "restricted memory rooms",
+        "project-defined confidential-information labels",
+        "output rejection",
+        "exact human-approved Safe Derivative substitution"
+      ],
+      "limitations": [
+        "automated detection is imperfect",
+        "project labels are not legal classifications"
+      ],
+      "source": "https://www.aiuc-1.com/data-and-privacy/protect-ip-trade-secrets",
+      "status": "partial"
+    },
+    {
+      "control": "A005.2",
+      "feature": "Cross-customer isolation",
+      "implementation": [
+        "non-owner runtime role",
+        "forced row-level security",
+        "transaction-scoped tenant context",
+        "explicit tenant and program query predicates",
+        "synthetic cross-tenant adversarial tests"
+      ],
+      "source": "https://www.aiuc-1.com/data-and-privacy/prevent-cross-customer-data-exposure",
+      "status": "implemented"
+    },
+    {
+      "control": "A006.1",
+      "feature": "PII leakage safeguards",
+      "implementation": [
+        "deterministic input and output scanning",
+        "Amazon Bedrock Guardrail",
+        "content-safe receipts and logs"
+      ],
+      "limitations": [
+        "automated detection is imperfect",
+        "synthetic demo only"
+      ],
+      "source": "https://www.aiuc-1.com/data-and-privacy/prevent-pii-leakage",
+      "status": "prototype"
+    },
+    {
+      "control": "D003.1-D003.3",
+      "feature": "Bounded tool authorization",
+      "implementation": [
+        "allowlisted read-only receipt tool",
+        "validated receipt UUID",
+        "fixed parameterized query",
+        "single-call ceiling",
+        "content-safe tool invocation evidence"
+      ],
+      "source": "https://www.aiuc-1.com/reliability/restrict-unsafe-tool-calls",
+      "status": "implemented"
+    },
+    {
+      "control": "D003.4",
+      "feature": "Human approval for sensitive release",
+      "implementation": [
+        "exact source and derivative identifiers",
+        "content hashes",
+        "reviewer identity and role",
+        "purpose and audience scopes",
+        "policy version and expiry"
+      ],
+      "source": "https://www.aiuc-1.com/reliability/restrict-unsafe-tool-calls",
+      "status": "prototype"
+    }
+  ],
+  "scope": "Supported memory-mediated actions in the synthetic Gluevenir Bio demonstration"
+}

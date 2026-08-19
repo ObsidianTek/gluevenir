@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: gluevenir-otel-spanmetrics
+    honor_labels: false
+    static_configs:
+      - targets: [collector:8889]

@@ -1,0 +1,5 @@
+{
+  "app": "uv run python -m infra.app",
+  "build": "uv run ruff format --check infra tests/test_infra.py && uv run ruff check infra tests/test_infra.py && uv run pytest -q tests/test_infra.py",
+  "versionReporting": false
+}

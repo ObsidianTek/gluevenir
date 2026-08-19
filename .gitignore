@@ -1,0 +1,17 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.private/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+cdk.out/
+cdk.context.json
+node_modules/
+*.egg-info/
+*.py[cod]
+build/
+dist/

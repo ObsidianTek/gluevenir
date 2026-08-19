@@ -1,0 +1,44 @@
+{
+  "claim_boundary": "AARM-inspired evidence for supported memory-mediated actions only; this prototype does not claim AARM conformance, certification, community verification, or universal interception.",
+  "framework": "AARM",
+  "mappings": [
+    {
+      "control": "R1",
+      "feature": "Pre-execution Memory Action Gateway",
+      "implementation": "Every supported public memory action enters one gateway before retrieval or model use.",
+      "source": "https://aarm.dev/spec",
+      "status": "bounded"
+    },
+    {
+      "control": "R2-R3",
+      "feature": "Intent-aware authorization context",
+      "implementation": "Session, prior-receipt, role, purpose, audience, destination, tenant, and program context drive deterministic policy.",
+      "source": "https://aarm.dev/spec",
+      "status": "implemented"
+    },
+    {
+      "control": "R4",
+      "feature": "Five exclusive decisions",
+      "implementation": "ALLOW, DENY, MODIFY, STEP_UP, or DEFER, with unresolved and timed-out pending actions failing closed.",
+      "source": "https://aarm.dev/spec",
+      "status": "implemented"
+    },
+    {
+      "control": "R5-R6",
+      "feature": "Signed Recall Receipts",
+      "implementation": "Canonical, content-bound receipt fields are signed with a per-agent Ed25519 development key and verify offline.",
+      "limitations": "The development-key trust model does not protect against an administrator controlling both storage and signing key.",
+      "source": "https://aarm.dev/spec",
+      "status": "development-trust"
+    },
+    {
+      "control": "R8-R9",
+      "feature": "Content-safe evidence and least privilege",
+      "implementation": "A non-owner RLS role, bounded read tools, and content-safe events provide scoped evidence.",
+      "limitations": "No full SIEM interoperability or dynamic credential broker is implemented.",
+      "source": "https://aarm.dev/spec",
+      "status": "partial"
+    }
+  ],
+  "scope": "Supported memory-mediated actions in the synthetic Gluevenir Bio demonstration"
+}

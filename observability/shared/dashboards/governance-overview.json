@@ -1,0 +1,201 @@
+{
+  "annotations": {"list": []},
+  "editable": false,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": false,
+      "title": "Persona governance detail",
+      "tooltip": "Filter the same bounded telemetry by server-mapped persona.",
+      "type": "link",
+      "url": "/d/gluevenir-persona-governance"
+    }
+  ],
+  "panels": [
+    {
+      "gridPos": {"h": 3, "w": 24, "x": 0, "y": 0},
+      "id": 1,
+      "options": {
+        "content": "# Gluevenir Bio · Governance overview\n**Synthetic telemetry only** · AARM-inspired implementation evidence for supported memory-mediated actions · selected AIUC-1 implementation evidence · **not a conformance, certification, compliance, or audit-readiness claim**.\n\nOnly bounded stages, outcomes, counts, verification flags, and durations appear here. No prompt, answer, memory, identity, tenant, or program content is exported. Counter and table panels show current observability-task totals; the time selector applies to the latency chart.",
+        "mode": "markdown"
+      },
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "Gateway evaluations accumulated by the current observability task.",
+      "fieldConfig": {"defaults": {"color": {"fixedColor": "#F55259", "mode": "fixed"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 5, "x": 0, "y": 3},
+      "id": 2,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [{"editorMode": "code", "expr": "sum(traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\"})", "instant": true, "legendFormat": "governed turns", "range": false, "refId": "A"}],
+      "title": "Governed turns",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "ALLOW and MODIFY outcomes. This is a bounded demo utility signal, not an answer-quality claim.",
+      "fieldConfig": {"defaults": {"color": {"fixedColor": "#48D597", "mode": "fixed"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 5, "x": 5, "y": 3},
+      "id": 3,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [{"editorMode": "code", "expr": "sum(traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\",gluevenir_decision=~\"ALLOW|MODIFY\"})", "instant": true, "legendFormat": "useful outcomes", "range": false, "refId": "A"}],
+      "title": "Useful outcomes",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "Exact approved substitutions selected by MODIFY decisions.",
+      "fieldConfig": {"defaults": {"color": {"fixedColor": "#F5B93C", "mode": "fixed"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 5, "x": 10, "y": 3},
+      "id": 4,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [{"editorMode": "code", "expr": "sum(traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\",gluevenir_decision=\"MODIFY\"})", "instant": true, "legendFormat": "approved substitutions", "range": false, "refId": "A"}],
+      "title": "Approved substitutions",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "STEP_UP and DEFER outcomes. Both have zero side effects until resolved.",
+      "fieldConfig": {"defaults": {"color": {"fixedColor": "#A875F5", "mode": "fixed"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 4, "x": 15, "y": 3},
+      "id": 5,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [{"editorMode": "code", "expr": "sum(traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\",gluevenir_decision=~\"STEP_UP|DEFER\"})", "instant": true, "legendFormat": "pending actions", "range": false, "refId": "A"}],
+      "title": "Pending actions",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "DENY outcomes observed before execution.",
+      "fieldConfig": {"defaults": {"color": {"fixedColor": "#FF4F57", "mode": "fixed"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 5, "x": 19, "y": 3},
+      "id": 6,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [{"editorMode": "code", "expr": "sum(traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\",gluevenir_decision=\"DENY\"})", "instant": true, "legendFormat": "boundary denials", "range": false, "refId": "A"}],
+      "title": "Boundary denials",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "Exactly one of five decisions from each bounded gateway evaluation.",
+      "fieldConfig": {
+        "defaults": {"unit": "short"},
+        "overrides": [
+          {"matcher": {"id": "byName", "options": "ALLOW"}, "properties": [{"id": "color", "value": {"fixedColor": "#48D597", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "MODIFY"}, "properties": [{"id": "color", "value": {"fixedColor": "#F5B93C", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "STEP_UP"}, "properties": [{"id": "color", "value": {"fixedColor": "#4DA6FF", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "DEFER"}, "properties": [{"id": "color", "value": {"fixedColor": "#A875F5", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "DENY"}, "properties": [{"id": "color", "value": {"fixedColor": "#FF4F57", "mode": "fixed"}}]}
+        ]
+      },
+      "gridPos": {"h": 9, "w": 8, "x": 0, "y": 9},
+      "id": 7,
+      "options": {"displayLabels": ["name", "percent"], "legend": {"displayMode": "table", "placement": "right", "showLegend": true, "values": ["value", "percent"]}, "pieType": "donut", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "tooltip": {"mode": "single", "sort": "none"}},
+      "targets": [{"editorMode": "code", "expr": "sum by (gluevenir_decision) (traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\",gluevenir_decision=~\"ALLOW|MODIFY|STEP_UP|DEFER|DENY\"})", "instant": true, "legendFormat": "{{gluevenir_decision}}", "range": false, "refId": "A"}],
+      "title": "Five-outcome distribution",
+      "type": "piechart"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "p50 and p95 duration for the request root and deterministic gateway stage.",
+      "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 12, "lineInterpolation": "smooth", "lineWidth": 2, "showPoints": "never", "spanNulls": false, "stacking": {"group": "A", "mode": "none"}}, "unit": "ms"}, "overrides": []},
+      "gridPos": {"h": 9, "w": 16, "x": 8, "y": 9},
+      "id": 8,
+      "options": {"legend": {"calcs": ["lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "multi", "sort": "desc"}},
+      "targets": [
+        {"editorMode": "code", "expr": "histogram_quantile(0.50,sum by (le) (rate(traces_span_metrics_duration_milliseconds_bucket{span_name=\"gluevenir.request\"}[$__rate_interval])))", "legendFormat": "request p50", "range": true, "refId": "A"},
+        {"editorMode": "code", "expr": "histogram_quantile(0.95,sum by (le) (rate(traces_span_metrics_duration_milliseconds_bucket{span_name=\"gluevenir.request\"}[$__rate_interval])))", "legendFormat": "request p95", "range": true, "refId": "B"},
+        {"editorMode": "code", "expr": "histogram_quantile(0.50,sum by (le) (rate(traces_span_metrics_duration_milliseconds_bucket{span_name=\"gluevenir.gateway.evaluation\"}[$__rate_interval])))", "legendFormat": "gateway p50", "range": true, "refId": "C"},
+        {"editorMode": "code", "expr": "histogram_quantile(0.95,sum by (le) (rate(traces_span_metrics_duration_milliseconds_bucket{span_name=\"gluevenir.gateway.evaluation\"}[$__rate_interval])))", "legendFormat": "gateway p95", "range": true, "refId": "D"}
+      ],
+      "title": "Governed latency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "MODEL stages that report model_invoked=true.",
+      "fieldConfig": {"defaults": {"color": {"fixedColor": "#4DA6FF", "mode": "fixed"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 6, "x": 0, "y": 18},
+      "id": 9,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [{"editorMode": "code", "expr": "sum(traces_span_metrics_calls_total{span_name=\"gluevenir.model\",gluevenir_model_invoked=\"true\"})", "instant": true, "legendFormat": "model invoked", "range": false, "refId": "A"}],
+      "title": "Model invocations",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "RECEIPT stages that report receipt_verified=true within the development-key trust model.",
+      "fieldConfig": {"defaults": {"color": {"fixedColor": "#48D597", "mode": "fixed"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 6, "x": 6, "y": 18},
+      "id": 10,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [{"editorMode": "code", "expr": "sum(traces_span_metrics_calls_total{span_name=\"gluevenir.receipt\",gluevenir_receipt_verified=\"true\"})", "instant": true, "legendFormat": "verified receipts", "range": false, "refId": "A"}],
+      "title": "Verified receipts",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "Gateway evaluations grouped only by server-mapped synthetic persona.",
+      "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "unit": "short"}, "overrides": []},
+      "gridPos": {"h": 6, "w": 12, "x": 12, "y": 18},
+      "id": 11,
+      "options": {"displayMode": "gradient", "orientation": "horizontal", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "showUnfilled": true, "valueMode": "color"},
+      "targets": [{"editorMode": "code", "expr": "sum by (gluevenir_persona) (traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\"})", "instant": true, "legendFormat": "{{gluevenir_persona}}", "range": false, "refId": "A"}],
+      "title": "Governed turns by persona",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "Recall turns grouped by bounded candidate / included / excluded counts. Values are turn counts, not memory content.",
+      "fieldConfig": {"defaults": {"custom": {"align": "auto", "cellOptions": {"type": "auto"}, "filterable": false, "inspect": false}}, "overrides": []},
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 24},
+      "id": 12,
+      "options": {"cellHeight": "sm", "footer": {"show": false}, "showHeader": true, "sortBy": [{"desc": true, "displayName": "Value"}]},
+      "targets": [{"editorMode": "code", "expr": "sum by (gluevenir_candidate_count,gluevenir_included_count,gluevenir_excluded_count) (traces_span_metrics_calls_total{span_name=\"gluevenir.recall\"})", "format": "table", "instant": true, "legendFormat": "", "range": false, "refId": "A"}],
+      "title": "Recall count profile",
+      "transformations": [{"id": "labelsToFields", "options": {}}, {"id": "organize", "options": {"excludeByName": {"Time": true}, "renameByName": {"Value": "turns", "gluevenir_candidate_count": "candidates", "gluevenir_excluded_count": "excluded", "gluevenir_included_count": "included"}}}],
+      "type": "table"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "gluevenir-prometheus"},
+      "description": "Current observability-task totals grouped by persona, outcome, reason, and status. No individual event or identifier is shown.",
+      "fieldConfig": {"defaults": {"custom": {"align": "auto", "cellOptions": {"type": "auto"}, "filterable": false, "inspect": false}}, "overrides": []},
+      "gridPos": {"h": 9, "w": 24, "x": 0, "y": 32},
+      "id": 13,
+      "options": {"cellHeight": "sm", "footer": {"show": false}, "showHeader": true, "sortBy": [{"desc": true, "displayName": "Value"}]},
+      "targets": [{"editorMode": "code", "expr": "sum by (gluevenir_persona,gluevenir_decision,gluevenir_reason_code,gluevenir_status) (traces_span_metrics_calls_total{span_name=\"gluevenir.gateway.evaluation\"})", "format": "table", "instant": true, "legendFormat": "", "range": false, "refId": "A"}],
+      "title": "Current task aggregate activity",
+      "transformations": [{"id": "labelsToFields", "options": {}}, {"id": "organize", "options": {"excludeByName": {"Time": true}, "renameByName": {"Value": "turns", "gluevenir_decision": "outcome", "gluevenir_persona": "persona", "gluevenir_reason_code": "reason", "gluevenir_status": "status"}}}],
+      "type": "table"
+    },
+    {
+      "gridPos": {"h": 4, "w": 24, "x": 0, "y": 41},
+      "id": 14,
+      "options": {
+        "content": "### Evidence boundary\nThis dashboard visualizes content-safe observability from a synthetic demonstration. AARM references are inspiration and evidence mapping for supported memory-mediated actions only. Selected AIUC-1 references describe implementation evidence only. Neither implies conformance, certification, compliance, assessment, audit readiness, or complete detection.",
+        "mode": "markdown"
+      },
+      "transparent": true,
+      "type": "text"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 40,
+  "style": "dark",
+  "tags": ["gluevenir", "synthetic-telemetry-only", "aarm-inspired", "selected-aiuc-evidence"],
+  "templating": {"list": []},
+  "time": {"from": "now-30m", "to": "now"},
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Gluevenir Bio · Governance overview · Synthetic only",
+  "uid": "gluevenir-local-telemetry",
+  "version": 2,
+  "weekStart": ""
+}

@@ -1,0 +1,68 @@
+name: gluevenir-cloud-aligned
+
+services:
+  verify-cloud-contract:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command:
+      - python
+      - scripts/verify_local_stack.py
+      - --mode
+      - cloud-aligned
+      - --api-url
+      - ${GLUEVENIR_CLOUD_API_URL:?set the existing HTTPS AWS API demo URL}
+      - --site-url
+      - ${GLUEVENIR_CLOUD_SITE_URL:?set the existing HTTPS hosted site URL}
+    volumes:
+      - ./scripts:/app/scripts:ro
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      io.gluevenir.external.aws-runtime: "required-not-deployed"
+      io.gluevenir.external.cockroachdb-cloud: "required-not-deployed"
+
+  viewer:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command:
+      - python
+      - -m
+      - gluevenir._local_server
+      - --mode
+      - cloud-aligned
+      - --upstream-api-url
+      - ${GLUEVENIR_CLOUD_API_URL:?set the existing HTTPS AWS API demo URL}
+    volumes:
+      - ./site:/app/site:ro
+    depends_on:
+      verify-cloud-contract:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:8765:8765"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8765/health', timeout=2).read()"
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 5s
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      io.gluevenir.external.aws-runtime: "required-not-deployed"
+      io.gluevenir.external.cockroachdb-cloud: "required-not-deployed"

@@ -1,0 +1,77 @@
+{
+  "artifact_type": "redacted_live_smoke",
+  "generated_at": "2026-08-16T02:53:21Z",
+  "hosting": {
+    "amplify_deployment_job": "5",
+    "branded_url": "https://gluevenir.obsidiantek.io",
+    "byte_identical": true,
+    "generated_url": "https://production.d2v1tx01e3zvx8.amplifyapp.com",
+    "html_sha256": "7da263c98b0c69520c5ec05e8e45f8fed58f941852e914126ff60fe13e357532",
+    "https_verified": true
+  },
+  "lambda_demo": {
+    "allowed_origin": "https://gluevenir.obsidiantek.io",
+    "decisions": [
+      {
+        "decision": "ALLOW",
+        "receipt_decision_matched": true,
+        "signature_verified": true
+      },
+      {
+        "decision": "MODIFY",
+        "receipt_decision_matched": true,
+        "signature_verified": true
+      },
+      {
+        "decision": "STEP_UP",
+        "receipt_decision_matched": true,
+        "signature_verified": true
+      },
+      {
+        "decision": "DEFER",
+        "receipt_decision_matched": true,
+        "signature_verified": true
+      },
+      {
+        "decision": "DENY",
+        "receipt_decision_matched": true,
+        "signature_verified": true
+      }
+    ],
+    "unsafe_input": {
+      "error_code": "unsafe_input",
+      "http_status": 400,
+      "public_result_returned": false
+    }
+  },
+  "managed_mcp": {
+    "database": "gluevenir",
+    "inspection": {
+      "candidate_count": 2,
+      "decision": "MODIFY",
+      "included_count": 1,
+      "reason_code": "EXACT_APPROVED_DERIVATIVE",
+      "response_status": "completed"
+    },
+    "operation": "bounded read-only receipt metadata inspection",
+    "selected_memory_text": false,
+    "selected_prompt_or_answer": false,
+    "selected_tenant_or_program_id": false
+  },
+  "observability": {
+    "bounded_recent_scan": true,
+    "credential_field_events": 0,
+    "prompt_events": 0,
+    "runtime_error_events": 0
+  },
+  "redaction_status": "passed",
+  "schema_version": "gluevenir-live-smoke-v1",
+  "synthetic_data": true,
+  "ui_browser_check": {
+    "decision": "MODIFY",
+    "edited_prompt_rendered": true,
+    "pre_model_safe_derivative_rendered": true,
+    "receipt_signature_reported_verified": true,
+    "technical_receipt_disclosure_present": true
+  }
+}

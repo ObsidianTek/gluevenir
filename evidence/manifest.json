@@ -1,0 +1,79 @@
+{
+  "artifacts": [
+    {
+      "command": "manual source-linked review against the URLs embedded in the artifact",
+      "path": "evidence/aarm-alignment.json",
+      "redaction_status": "passed",
+      "sha256": "a0b2fd1f12a5c5ebf60291e8744d3539f478a08f4ed5dfb2555814b1ffe02e3b",
+      "synthetic_data": true
+    },
+    {
+      "command": "manual source-linked review against the URLs embedded in the artifact",
+      "path": "evidence/aiuc1-alignment.json",
+      "redaction_status": "passed",
+      "sha256": "6955c7f7bd456cabbd32e6edf352a1b7cad1af0292fba52e3447bce0bf9cdd77",
+      "synthetic_data": true
+    },
+    {
+      "command": "manual reconciliation against the deployed CDK and runtime path",
+      "path": "evidence/architecture.mmd",
+      "redaction_status": "passed",
+      "sha256": "51ce2b12aed09172bf6d6348436fa5a262a9ff6de9731c31386ce5c6ac26f697",
+      "synthetic_data": true
+    },
+    {
+      "command": "uv run python scripts/generate_evidence.py evidence --samples 1000",
+      "path": "evidence/benchmark-results.json",
+      "redaction_status": "passed",
+      "sha256": "73c76725caa4b3134161d604abf3a5801189755b4a7bbbb4c10b90926b4ebac1",
+      "synthetic_data": true
+    },
+    {
+      "command": "read-only official CockroachDB Agent Skills review using Managed MCP, bounded direct SQL, and a removed disposable synthetic vector corpus",
+      "path": "evidence/cockroachdb-skills-review.json",
+      "redaction_status": "passed",
+      "sha256": "15fc70648f9f0019e54bd8aee642e22a49bfcdb33433f2d1f2059630af2e9abf",
+      "synthetic_data": true
+    },
+    {
+      "command": "uv run python scripts/generate_evidence.py evidence --samples 1000",
+      "path": "evidence/eval-results.json",
+      "redaction_status": "passed",
+      "sha256": "d99b564eab90b4f9dc7a2a34fcf9530c52a90bc067845ec123647feb8adc63c0",
+      "synthetic_data": true
+    },
+    {
+      "command": "manual feature-freeze limitation review",
+      "path": "evidence/failure-notes.md",
+      "redaction_status": "passed",
+      "sha256": "e060d2507f79ebbeb89ef9deae763f48bc416583f8d95ca47bc890429fed4225",
+      "synthetic_data": true
+    },
+    {
+      "command": "uv run python scripts/generate_release_provenance.py",
+      "path": "evidence/fresh-clone.json",
+      "redaction_status": "passed",
+      "sha256": "f555bff5bf7fd96268aca26b4643fee2448931995795f8cfa0f5a4ab98bb6566",
+      "synthetic_data": true
+    },
+    {
+      "command": "aws amplify get-job plus byte-identical HTTPS verification",
+      "path": "evidence/hosting-decision.md",
+      "redaction_status": "passed",
+      "sha256": "5fd8c6bc20579a56b68812ce9d57f0edcb31d6c5a899237e57476cd94ab7d338",
+      "synthetic_data": true
+    },
+    {
+      "command": "bounded Amplify CLI, HTTPS, Browser, CloudWatch, and CockroachDB Cloud Managed MCP verification",
+      "path": "evidence/live-smoke-redacted.json",
+      "redaction_status": "passed",
+      "sha256": "724325d32891201b8f7651fe23aec9278206aa295900630ccb5e8625ddb48c70",
+      "synthetic_data": true
+    }
+  ],
+  "generated_at": "2026-08-18T14:07:28Z",
+  "redaction_status": "passed",
+  "schema_version": "gluevenir-evidence-manifest-v1",
+  "source_commit_sha": "4ed7fd21cc5d6900b23a1d11382c23c035d71618",
+  "synthetic_data": true
+}

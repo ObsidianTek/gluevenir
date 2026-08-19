@@ -1,0 +1,25 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: Gluevenir Prometheus
+    orgId: 1
+  - name: Gluevenir Jaeger
+    orgId: 1
+
+datasources:
+  - name: Gluevenir Prometheus
+    uid: gluevenir-prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    jsonData:
+      httpMethod: POST
+      timeInterval: 5s
+  - name: Gluevenir Jaeger
+    uid: gluevenir-jaeger
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+    editable: false

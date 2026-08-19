@@ -1,0 +1,11 @@
+# Deny the entire context by default. This excludes Git/private/env/evidence,
+# recordings, keys, caches, tests, and any future local artifact unless it is
+# explicitly required to build the runtime package below.
+*
+!Dockerfile
+!.dockerignore
+!LICENSE
+!README.md
+!pyproject.toml
+!src/
+!src/**

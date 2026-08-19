@@ -1,0 +1,29 @@
+Alembic single-database migration environment for Gluevenir's CockroachDB schema.
+
+Run migrations with `DATABASE_URL` set in the environment:
+
+    uv run alembic upgrade head
+
+The connection string is never stored in repository configuration.
+
+CockroachDB reports this environment as non-transactional DDL. Before the first
+upgrade, run the read-only preflight and require a clean dedicated database:
+
+    uv run python scripts/check_live_migration_state.py --expect clean
+
+After a successful upgrade, require the current state:
+
+    uv run python scripts/check_live_migration_state.py --expect current
+
+If a non-transactional pre-release migration fails before Alembic records its
+target revision, do not rerun it over partial objects and do not add
+`IF NOT EXISTS`. Preserve the error for diagnosis. `gluevenir_app` is
+cluster-scoped, so recreating only the database does not remove a partially
+created role. During this pre-release synthetic-only phase, first confirm the
+exact dedicated database and inspect the exact role's memberships. Revoke only
+confirmed Gluevenir runtime memberships, drop only the dedicated synthetic
+database so its policies and grants no longer reference the role, remove only
+the now-unreferenced `gluevenir_app` role, recreate only the dedicated database,
+and rerun the clean preflight. Never use broad role or database cleanup. Once
+any non-synthetic or released environment exists, recover with a new forward
+Alembic revision instead of recreating it.

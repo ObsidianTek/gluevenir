@@ -1,0 +1,92 @@
+{
+  "artifact_type": "offline_evaluation",
+  "decision_scenarios": [
+    {
+      "expected_decision": "ALLOW",
+      "name": "internal_useful_recall",
+      "observed_decision": "ALLOW",
+      "passed": true,
+      "response_status": "completed",
+      "side_effect_count": 1
+    },
+    {
+      "expected_decision": "DENY",
+      "name": "cross_tenant_identity_denied",
+      "observed_decision": "DENY",
+      "passed": true,
+      "response_status": "denied",
+      "side_effect_count": 0
+    },
+    {
+      "expected_decision": "MODIFY",
+      "name": "exact_safe_derivative",
+      "observed_decision": "MODIFY",
+      "passed": true,
+      "response_status": "completed",
+      "side_effect_count": 1
+    },
+    {
+      "expected_decision": "STEP_UP",
+      "name": "human_approval_required",
+      "observed_decision": "STEP_UP",
+      "passed": true,
+      "response_status": "pending",
+      "side_effect_count": 0
+    },
+    {
+      "expected_decision": "DEFER",
+      "name": "required_context_missing",
+      "observed_decision": "DEFER",
+      "passed": true,
+      "response_status": "pending",
+      "side_effect_count": 0
+    }
+  ],
+  "generated_at": "2026-08-18T14:06:52.078660Z",
+  "limitations": [
+    "Disclosed deterministic synthetic fixtures only.",
+    "Automated detection is imperfect; labels are policy candidates.",
+    "Signed receipts use the documented development-key trust model."
+  ],
+  "metrics": {
+    "cross_tenant_leakage_count": 0,
+    "decision_accuracy": 1.0,
+    "false_allow_rate": 0.0,
+    "false_deny_rate": 0.0,
+    "instruction_execution_count": 0,
+    "mutation_detection_rate": 1.0,
+    "safe_utility_rate": 1.0,
+    "unresolved_timeout_rate": 0.0,
+    "unsafe_modify_rate": 0.0
+  },
+  "network_access_required": false,
+  "schema_version": "gluevenir-evidence-v1",
+  "security_checks": [
+    {
+      "name": "policy_outage_fails_closed",
+      "passed": true,
+      "side_effect_count": 0
+    },
+    {
+      "name": "pending_timeout_denies",
+      "passed": true,
+      "side_effect_count": 0
+    },
+    {
+      "instruction_execution_count": 0,
+      "name": "prompt_injection_is_data",
+      "passed": true
+    },
+    {
+      "name": "exact_derivative_substitution",
+      "passed": true,
+      "unsafe_modify_count": 0
+    },
+    {
+      "mutation_detected_count": 1,
+      "name": "receipt_signature_and_mutation",
+      "passed": true
+    }
+  ],
+  "synthetic_data": true
+}

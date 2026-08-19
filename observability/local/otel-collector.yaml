@@ -1,0 +1,65 @@
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+
+connectors:
+  spanmetrics:
+    aggregation_temporality: AGGREGATION_TEMPORALITY_CUMULATIVE
+    dimensions:
+      - name: gluevenir.candidate_count
+      - name: gluevenir.decision
+      - name: gluevenir.excluded_count
+      - name: gluevenir.included_count
+      - name: gluevenir.model_invoked
+      - name: gluevenir.operation
+      - name: gluevenir.persona
+      - name: gluevenir.reason_code
+      - name: gluevenir.receipt_verified
+      - name: gluevenir.status
+    exemplars:
+      enabled: false
+    histogram:
+      explicit:
+        buckets: [10ms, 25ms, 50ms, 100ms, 250ms, 500ms, 1s, 2s, 5s]
+    metrics_flush_interval: 5s
+
+processors:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 192
+    spike_limit_mib: 48
+  batch:
+    send_batch_size: 128
+    timeout: 1s
+
+exporters:
+  otlphttp/jaeger:
+    endpoint: http://jaeger:4318
+    tls:
+      insecure: true
+  prometheus:
+    endpoint: 0.0.0.0:8889
+    enable_open_metrics: true
+    resource_to_telemetry_conversion:
+      enabled: false
+
+service:
+  extensions: [health_check]
+  telemetry:
+    logs:
+      level: warn
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlphttp/jaeger, spanmetrics]
+    metrics:
+      receivers: [spanmetrics]
+      processors: [batch]
+      exporters: [prometheus]

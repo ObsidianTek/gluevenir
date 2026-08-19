@@ -1,0 +1,225 @@
+name: gluevenir-hybrid
+
+services:
+  collector:
+    image: otel/opentelemetry-collector-contrib:0.123.0
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ./observability/local/otel-collector.yaml:/etc/otelcol-contrib/config.yaml:ro
+    depends_on:
+      jaeger:
+        condition: service_started
+    expose:
+      - "4318"
+      - "8889"
+      - "13133"
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.2.1
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=24h
+      - --storage.tsdb.retention.size=256MB
+    volumes:
+      - ./observability/local/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    depends_on:
+      collector:
+        condition: service_started
+    expose:
+      - "9090"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.66.0
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+      MEMORY_MAX_TRACES: "10000"
+    expose:
+      - "4318"
+    ports:
+      - "127.0.0.1:16686:16686"
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana-oss:11.6.0
+    environment:
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_NAME: Main Org.
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      GF_SECURITY_DISABLE_GRAVATAR: "true"
+      GF_SECURITY_ALLOW_EMBEDDING: "true"
+      GF_PLUGINS_PREINSTALL_DISABLED: "true"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./observability/local/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/shared/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      prometheus:
+        condition: service_started
+      jaeger:
+        condition: service_started
+    ports:
+      - "127.0.0.1:3000:3000"
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /var/log/grafana:size=32m,mode=0755
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  telemetry-ready:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command: ["python", "/app/observability/local/wait_for_stack.py"]
+    volumes:
+      - ./observability/local:/app/observability/local:ro
+    depends_on:
+      collector:
+        condition: service_started
+      prometheus:
+        condition: service_started
+      jaeger:
+        condition: service_started
+      grafana:
+        condition: service_started
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  setup:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command: ["python", "-m", "scripts.bootstrap_local", "--mode", "hybrid"]
+    user: "0:0"
+    environment:
+      GLUEVENIR_DATABASE_URL_FILE: /run/secrets/cockroach_runtime_url
+      GLUEVENIR_SIGNING_KEY_FILE: /run/gluevenir-signing/receipt-ed25519.key
+      GLUEVENIR_SIGNING_KEY_OWNER: "10001:10001"
+    secrets:
+      - cockroach_runtime_url
+    volumes:
+      - ./scripts:/app/scripts:ro
+      - signing-data:/run/gluevenir-signing
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command: ["python", "-m", "gluevenir._local_server", "--mode", "hybrid"]
+    environment:
+      AWS_REGION: ${GLUEVENIR_AWS_REGION:-us-east-1}
+      GLUEVENIR_BEDROCK_GUARDRAIL_ID: ${GLUEVENIR_BEDROCK_GUARDRAIL_ID:?set a development Bedrock Guardrail ID}
+      GLUEVENIR_BEDROCK_GUARDRAIL_VERSION: ${GLUEVENIR_BEDROCK_GUARDRAIL_VERSION:-2}
+      GLUEVENIR_BEDROCK_TOKEN_FILE: /run/secrets/bedrock_api_key
+      GLUEVENIR_DATABASE_URL_FILE: /run/secrets/cockroach_runtime_url
+      GLUEVENIR_OTLP_TRACES_ENDPOINT: http://collector:4318/v1/traces
+      GLUEVENIR_SIGNING_KEY_FILE: /run/gluevenir-signing/receipt-ed25519.key
+    secrets:
+      - bedrock_api_key
+      - cockroach_runtime_url
+    volumes:
+      - ./site:/app/site:ro
+      - signing-data:/run/gluevenir-signing:ro
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+      telemetry-ready:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:8765:8765"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8765/health', timeout=2).read()"
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 15s
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  verify:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command:
+      - python
+      - scripts/verify_local_stack.py
+      - --mode
+      - runtime
+      - --base-url
+      - http://app:8765
+      - --jaeger-url
+      - http://jaeger:16686
+      - --prometheus-url
+      - http://prometheus:9090
+    volumes:
+      - ./scripts:/app/scripts:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+secrets:
+  bedrock_api_key:
+    file: ${GLUEVENIR_BEDROCK_TOKEN_FILE:-.private/compose/bedrock_api_key}
+  cockroach_runtime_url:
+    file: ${GLUEVENIR_COCKROACH_URL_FILE:-.private/compose/cockroach_runtime_url}
+
+volumes:
+  grafana-data:
+  prometheus-data:
+  signing-data:

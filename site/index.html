@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07080a">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="canonical" href="https://gluevenir.obsidiantek.io/">
+  <meta name="description" content="Gluevenir Bio gives AI agents critical context with controlled recall. Explore a live, synthetic governed-memory demonstration.">
+  <meta name="gluevenir-api-url" content="https://sgyya5fpa2lco4rljupgjcpnou0sckgq.lambda-url.us-east-1.on.aws/v1/demo">
+  <meta name="gluevenir-observability-url" content="">
+  <meta name="gluevenir-observability-mode" content="hosted">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Gluevenir Bio">
+  <meta property="og:title" content="Critical Context. Controlled Recall.">
+  <meta property="og:description" content="See how a synthetic biotech agent keeps useful memory moving while governed recall protects restricted context.">
+  <meta property="og:url" content="https://gluevenir.obsidiantek.io/">
+  <meta property="og:image" content="https://gluevenir.obsidiantek.io/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="628">
+  <meta property="og:image:alt" content="Gluevenir Bio | Critical Context. Controlled Recall.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Critical Context. Controlled Recall.">
+  <meta name="twitter:description" content="A live, synthetic governed-memory demonstration from ObsidianTek.">
+  <meta name="twitter:image" content="https://gluevenir.obsidiantek.io/assets/social-preview.png">
+  <title>Gluevenir Bio | Critical Context. Controlled Recall.</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --ink:#080808; --graphite:#202020; --muted:#5f5f5f; --quiet:#747474; --bg:#f4f4f2;
+      --surface:#fff; --raised:#e8e8e5; --line:#aaa; --accent:#9a1d20;
+      --allow:#176d47; --modify:#176183; --step:#8a5700; --defer:#66438f; --deny:#9a1d20;
+      --shadow:10px 10px 0 rgb(8 8 8 / 8%);
+    }
+    * { box-sizing:border-box; }
+    [hidden] { display:none!important; }
+    html { scroll-behavior:smooth; }
+    body {
+      min-width:20rem; margin:0; color:var(--ink);
+      background:linear-gradient(135deg,#dededb 0%,var(--bg) 42%,#fff 100%) fixed;
+    }
+    button { font:inherit; color:inherit; }
+    button:focus-visible,a:focus-visible,textarea:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+    .skip {
+      position:fixed; z-index:20; top:.7rem; left:.7rem; padding:.65rem .9rem;
+      border-radius:.5rem; background:#fff; color:#061510; font-weight:850;
+      transform:translateY(-180%);
+    }
+    .skip:focus { transform:none; }
+    .shell { width:min(68rem,calc(100% - 2rem)); margin-inline:auto; }
+    header {
+      display:flex; align-items:center; justify-content:space-between; min-height:4.1rem;
+      border-bottom:1px solid var(--line);
+    }
+    .brand { display:flex; align-items:center; gap:.75rem; color:var(--ink); font-weight:850; text-decoration:none; }
+    .mark {
+      display:grid; width:2rem; height:2rem; place-items:center; border:1px solid #3b6757;
+      border-radius:.62rem; background:#11382a; color:var(--accent); font-size:.72rem; letter-spacing:-.05em;
+    }
+    .header-note,.eyebrow,.kicker {
+      color:var(--accent); font-size:.76rem; font-weight:850; letter-spacing:.11em; text-transform:uppercase;
+    }
+    .header-note { color:var(--muted); text-underline-offset:.22rem; }
+    .header-note:hover { color:var(--ink); }
+    main { padding:2.6rem 0 3rem; }
+    h1,h2,h3,p { margin-top:0; }
+    .hero {
+      display:grid; grid-template-columns:minmax(0,1.2fr) minmax(17rem,.7fr);
+      gap:clamp(2rem,5vw,3.5rem); align-items:center;
+    }
+    h1 {
+      max-width:14ch; margin:.65rem 0 1rem; font-size:clamp(2.9rem,5.4vw,4.45rem);
+      line-height:.98; letter-spacing:-.055em;
+    }
+    h1 span { color:var(--accent); }
+    .lede { max-width:40rem; margin:0; color:#c7dad1; font-size:clamp(1rem,1.6vw,1.14rem); line-height:1.55; }
+    .hero-actions { display:flex; align-items:center; gap:1rem; margin-top:1.1rem; }
+    .hero-cta { padding:.78rem 1rem; border:1px solid var(--ink); background:var(--ink); color:#fff; font-weight:850; text-decoration:none; }
+    .hero-cta:hover { background:var(--accent); }
+    .live-note { display:flex; align-items:center; gap:.45rem; color:var(--muted); font-size:.75rem; font-weight:750; }
+    .live-note::before { content:""; width:.5rem; height:.5rem; border-radius:50%; background:var(--allow); }
+    .proof {
+      padding:1.2rem; border:1px solid var(--line); border-radius:1.25rem;
+      background:linear-gradient(145deg,#102920,#0a1d17); box-shadow:var(--shadow);
+    }
+    .proof-label { margin-bottom:.85rem; color:var(--muted); font-size:.68rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
+    .proof dl { display:grid; gap:.75rem; margin:0; }
+    .proof dl div { display:grid; grid-template-columns:auto 1fr; gap:.75rem; align-items:baseline; }
+    .proof dt { color:var(--accent); font-weight:900; }
+    .proof dd { margin:0; color:#d5e4dd; font-size:.87rem; line-height:1.4; }
+    .architecture {
+      display:grid; grid-template-columns:repeat(4,1fr); margin:2rem 0 3.5rem;
+      border:1px solid var(--line); border-radius:.9rem; overflow:hidden;
+    }
+    .architecture div { padding:.8rem .9rem; background:rgb(10 30 23 / 70%); }
+    .architecture div+div { border-left:1px solid var(--line); }
+    .architecture strong,.architecture span { display:block; }
+    .architecture strong { margin-bottom:.25rem; font-size:.88rem; }
+    .architecture span { color:var(--muted); font-size:.75rem; line-height:1.4; }
+    #top,#demo { scroll-margin-top:6.6rem; }
+    .demo-head { display:grid; grid-template-columns:1.08fr minmax(16rem,.72fr); gap:2rem; align-items:end; margin-bottom:1rem; }
+    .kicker { margin-bottom:.6rem; }
+    h2 { margin-bottom:.4rem; font-size:clamp(1.9rem,3.2vw,2.7rem); line-height:1.04; letter-spacing:-.04em; }
+    .demo-head>p { margin:0; color:var(--muted); line-height:1.6; }
+    .run-bar {
+      display:flex; align-items:center; justify-content:space-between; gap:.85rem; padding:.85rem 1rem;
+      border:1px solid var(--line); border-radius:1rem; background:#081813;
+    }
+    .run-context strong,.run-context span { display:block; }
+    .run-context strong { margin-bottom:.2rem; }
+    .run-context span { color:var(--muted); font-size:.82rem; }
+    .run {
+      flex:0 0 auto; min-width:10rem; padding:.78rem 1.15rem; border:0; border-radius:.75rem;
+      background:var(--accent); color:#04251a; font-weight:900; cursor:pointer;
+    }
+    .run:hover { background:#8ef3c4; }
+    .run:disabled { cursor:wait; opacity:.68; }
+    .result {
+      margin-top:.75rem; border:1px solid var(--line); border-radius:1.25rem;
+      background:var(--surface); box-shadow:var(--shadow); overflow:hidden;
+    }
+    .result[hidden] { display:none; }
+    .status {
+      display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.65rem 1rem;
+      border-bottom:1px solid var(--line); background:#0d241c; color:var(--muted); font-size:.76rem;
+    }
+    .mode { display:flex; align-items:center; gap:.45rem; color:var(--ink); font-weight:850; }
+    .dot { width:.55rem; height:.55rem; border-radius:50%; background:var(--step); }
+    .mode[data-mode="live"] .dot { background:var(--allow); box-shadow:0 0 0 .25rem rgb(104 232 173 / 12%); }
+    .result.is-running .dot { opacity:.82; transform:scale(.92); }
+    .conversation { display:grid; gap:.8rem; padding:clamp(.85rem,2vw,1.35rem); }
+    .chat-turn { display:grid; grid-template-columns:2.25rem minmax(0,1fr); gap:.7rem; align-items:start; }
+    .avatar {
+      display:grid; width:2.25rem; height:2.25rem; place-items:center; border:1px solid var(--line);
+      border-radius:.8rem; background:#102920; color:var(--accent); font-size:.68rem; font-weight:900;
+    }
+    .user-turn .avatar { color:#b9cdc4; background:#13221d; }
+    .message { width:100%; min-width:0; max-width:none; padding:.82rem 1rem; border:1px solid var(--line); border-radius:0 1rem 1rem 1rem; background:#0b211a; }
+    .user-turn .message { border-color:#315347; background:#11251e; }
+    .speaker { display:block; margin-bottom:.38rem; color:var(--quiet); font-size:.66rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
+    .prompt { margin:0; color:#e3eee9; font-size:clamp(1rem,2vw,1.18rem); line-height:1.55; }
+    .intercept {
+      margin-left:2.95rem; padding:.9rem; border:1px solid #315347; border-radius:1rem;
+      background:linear-gradient(135deg,#0c261d,#0a1c16);
+    }
+    .intercept-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:.9rem; }
+    .intercept-head strong { font-size:.83rem; }
+    .intercept-head span { color:var(--accent); font-size:.66rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
+    .memory-path { display:grid; grid-template-columns:1fr auto 1fr; gap:.75rem; align-items:stretch; }
+    .memory-card { padding:.7rem; border:1px solid var(--line); border-radius:.75rem; background:#081813; }
+    .memory-card .tag { display:block; margin-bottom:.42rem; color:var(--quiet); font-size:.61rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+    .memory-card strong { display:block; color:#d5e4dd; font-size:.78rem; line-height:1.4; }
+    .memory-card.approved { border-color:#31644f; }
+    .memory-card.approved .tag { color:var(--accent); }
+    .flow-arrow { display:grid; place-items:center; color:var(--accent); font-weight:900; }
+    .decision-line { display:grid; grid-template-columns:auto 1fr; gap:.8rem; align-items:center; margin-top:.85rem; }
+    .gateway-copy { margin:0; color:var(--muted); font-size:.8rem; line-height:1.5; }
+    .outcome { min-width:0; }
+    .outcome-top { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:2rem; }
+    .pill {
+      padding:.45rem .7rem; border:1px solid currentColor; border-radius:999px;
+      color:var(--allow); font-size:.7rem; font-weight:900; letter-spacing:.09em;
+    }
+    .pill[data-decision="MODIFY"] { color:var(--modify); }
+    .pill[data-decision="STEP_UP"] { color:var(--step); }
+    .pill[data-decision="DEFER"] { color:var(--defer); }
+    .pill[data-decision="DENY"] { color:var(--deny); }
+    .effect { color:var(--muted); font-size:.74rem; font-weight:750; }
+    .outcome h3 { margin-bottom:.5rem; font-size:clamp(1.18rem,2.2vw,1.5rem); letter-spacing:-.025em; }
+    .summary { max-width:48rem; margin-bottom:.85rem; color:#d8e7e0; font-size:.96rem; line-height:1.55; }
+    .boundary {
+      display:grid; grid-template-columns:auto 1fr; gap:.6rem; margin:0; padding:.7rem;
+      border:1px solid #2e5145; border-radius:.75rem; background:#0b211a;
+      color:var(--muted); font-size:.79rem; line-height:1.5;
+    }
+    .check { color:var(--accent); font-weight:900; }
+    .receipt { margin-left:2.95rem; border:1px solid var(--line); border-radius:.9rem; background:#081813; overflow:hidden; }
+    .receipt summary { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.75rem .9rem; cursor:pointer; list-style:none; }
+    .receipt summary::-webkit-details-marker { display:none; }
+    .receipt summary::after { content:"View technical proof +"; color:var(--accent); font-size:.7rem; font-weight:850; }
+    .receipt[open] summary::after { content:"Hide technical proof −"; }
+    .receipt-head { display:flex; align-items:center; gap:.75rem; }
+    .receipt h3 { margin:0; font-size:.88rem; }
+    .safe { color:var(--accent); font-size:.66rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
+    .proof-summary { color:var(--muted); font-size:.75rem; }
+    .receipt dl { display:grid; gap:.86rem; margin:0; padding:1rem 1.1rem 1.2rem; border-top:1px solid var(--line); }
+    .receipt dl div { display:grid; grid-template-columns:8.3rem minmax(0,1fr); gap:.8rem; align-items:start; }
+    .receipt dt { color:var(--quiet); font-size:.7rem; font-weight:750; }
+    .receipt dd {
+      min-width:0; margin:0; color:#d6e4de; font: .7rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      overflow-wrap:anywhere;
+    }
+    .verify { color:var(--step); font-family:ui-sans-serif,system-ui,sans-serif; font-weight:850; }
+    .verify[data-verified="true"] { color:var(--accent); }
+    .controls { margin-top:clamp(3.2rem,7vw,5.5rem); }
+    .controls-head { max-width:52rem; margin-bottom:1.4rem; }
+    .controls-head h2 { margin:.3rem 0 .65rem; }
+    .controls-head p { color:var(--muted); line-height:1.65; }
+    .control-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .control-card { padding:1.4rem; border:1px solid var(--line); border-radius:1rem; background:var(--surface); }
+    .control-card h3 { margin:0 0 .35rem; font-size:1.05rem; }
+    .control-card>p { margin:0 0 1rem; color:var(--quiet); font-size:.82rem; line-height:1.55; }
+    .control-card dl { display:grid; gap:.9rem; margin:0; }
+    .control-card dl div { padding-top:.85rem; border-top:1px solid var(--line); }
+    .control-card dt { display:flex; align-items:center; gap:.55rem; margin-bottom:.3rem; font-weight:850; }
+    .control-card dt a { color:var(--ink); text-decoration-color:var(--allow); text-underline-offset:.18rem; }
+    .control-card dd { margin:0; color:var(--muted); font-size:.82rem; line-height:1.55; }
+    .control-card dd strong { color:var(--ink); }
+    .scope-tag { padding:.13rem .42rem; border:1px solid var(--line); border-radius:99px; color:var(--quiet); font-size:.58rem; letter-spacing:.06em; text-transform:uppercase; }
+    .disclosure { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:5rem 0 2rem; }
+    .disclosure article { padding:1.4rem; border-top:1px solid var(--line); }
+    .disclosure h3 { margin-bottom:.65rem; font-size:.88rem; }
+    .disclosure p { margin:0; color:var(--muted); font-size:.81rem; line-height:1.65; }
+    footer { padding:2rem 0 3rem; border-top:1px solid var(--line); color:var(--muted); font-size:.77rem; line-height:1.6; }
+    footer strong { color:var(--ink); }
+    h1,h2,h3 { font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-weight:900; }
+    .brand,.run { font-family:"Arial Narrow",ui-sans-serif,system-ui,sans-serif; font-weight:900; }
+    .skip { border-radius:0; background:var(--ink); color:#fff; }
+    .mark { border-color:var(--ink); border-radius:0; background:var(--ink); color:#fff; }
+    .header-note:hover { color:var(--accent); }
+    .lede,.proof dd,.summary,.memory-card strong,.receipt dd { color:var(--graphite); }
+    .proof,.architecture,.run-bar,.run,.result,.avatar,.message,.intercept,.memory-card,.boundary,.receipt,.control-card,textarea { border-radius:0; }
+    .proof { border-color:var(--ink); background:rgb(255 255 255 / 70%); }
+    .architecture { border-color:var(--ink); }
+    .architecture div { background:rgb(255 255 255 / 65%); }
+    .run-bar { display:grid; align-items:stretch; border-color:var(--ink); background:#fff; }
+    .composer-fields { display:block; }
+    .field { display:grid; gap:.38rem; }
+    .field-label { color:var(--muted); font-size:.68rem; font-weight:850; letter-spacing:.09em; text-transform:uppercase; }
+    textarea { width:100%; min-height:5rem; padding:.8rem; border:1px solid var(--ink); background:#fff; color:var(--ink); font:inherit; resize:vertical; line-height:1.45; }
+    .composer-actions { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .input-note { max-width:48rem; margin:0; color:var(--muted); font-size:.75rem; line-height:1.45; }
+    .input-note strong { color:var(--accent); }
+    .count { color:var(--quiet); font-size:.68rem; text-align:right; }
+    .run { min-width:12rem; border:1px solid var(--ink); background:var(--ink); color:#fff; }
+    .run:hover { background:var(--accent); }
+    .result { border-color:var(--ink); }
+    .status { border-bottom-color:var(--ink); background:var(--raised); }
+    .avatar { border-color:var(--ink); background:var(--ink); color:#fff; }
+    .user-turn .avatar { color:#fff; background:var(--accent); }
+    .message { border-color:var(--ink); background:#fff; }
+    .user-turn .message { border-color:var(--ink); background:var(--raised); }
+    .prompt { color:var(--ink); }
+    .intercept { border-color:var(--ink); background:var(--raised); box-shadow:6px 6px 0 rgb(8 8 8 / 8%); }
+    .memory-card { background:#fff; }
+    .memory-card.approved { border-color:var(--accent); }
+    .boundary { border-color:var(--line); background:var(--raised); }
+    .receipt { border-color:var(--ink); background:#fff; }
+    .control-card { border-color:var(--ink); box-shadow:var(--shadow); }
+    @media (max-width:62rem) {
+    }
+    @media (max-width:48rem) {
+      main { padding-top:2.4rem; }
+      .hero,.demo-head,.control-grid { grid-template-columns:1fr; }
+      .proof { display:none; }
+      .architecture { grid-template-columns:repeat(2,1fr); margin:1.75rem 0 2.75rem; }
+      .architecture div:nth-child(3) { border-left:0; }
+      .architecture div:nth-child(n+3) { border-top:1px solid var(--line); }
+    }
+    @media (max-width:34rem) {
+      .shell { width:min(100% - 1.2rem,68rem); }
+      .header-note { display:none; }
+      main { padding-top:1.65rem; }
+      h1 { max-width:none; font-size:clamp(2.35rem,11.5vw,3rem); line-height:1; letter-spacing:-.05em; }
+      .hero { gap:1rem; }
+      .hero-actions { align-items:center; flex-direction:row; flex-wrap:wrap; }
+      .architecture { display:none; }
+      #demo { margin-top:2.75rem; }
+      .demo-head { gap:.6rem; }
+      .disclosure { grid-template-columns:1fr; }
+      .run-bar,.outcome-top,.status { align-items:flex-start; flex-direction:column; }
+      .composer-fields { grid-template-columns:1fr; }
+      .composer-actions { align-items:stretch; flex-direction:column; }
+      .run { width:100%; }
+      .chat-turn { grid-template-columns:2rem minmax(0,1fr); }
+      .avatar { width:2rem; height:2rem; }
+      .intercept,.receipt { margin-left:0; }
+      .memory-path { grid-template-columns:1fr; }
+      .flow-arrow { transform:rotate(90deg); }
+      .decision-line { grid-template-columns:1fr; }
+      .receipt summary { align-items:flex-start; flex-direction:column; }
+      .receipt dl div { grid-template-columns:1fr; gap:.15rem; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { animation:none!important; scroll-behavior:auto!important; transition-duration:.01ms!important; }
+    }
+  </style>
+  <style id="obsidian-depth-theme">
+    :root {
+      color-scheme:dark;
+      --ink:#f6f5f1;
+      --graphite:#0a0b0e;
+      --muted:#b4b5ba;
+      --quiet:#85878e;
+      --bg:#060709;
+      --surface:rgb(17 18 22 / 88%);
+      --raised:#17191e;
+      --line:rgb(255 255 255 / 13%);
+      --accent:#b42026;
+      --accent-bright:#ef5559;
+      --allow:#58d6a0;
+      --modify:#5db9e6;
+      --step:#f4bd61;
+      --defer:#ba8fea;
+      --deny:#ef6d72;
+      --shadow:0 24px 70px rgb(0 0 0 / 42%),0 2px 8px rgb(0 0 0 / 35%);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    body {
+      position:relative;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 76% 4%,rgb(180 32 38 / 20%),transparent 30rem),
+        radial-gradient(circle at 14% 38%,rgb(83 51 57 / 13%),transparent 32rem),
+        linear-gradient(145deg,#0c0d11 0%,#060709 48%,#090a0d 100%) fixed;
+    }
+    body::before {
+      position:fixed; z-index:-1; inset:0; content:""; pointer-events:none;
+      background-image:linear-gradient(rgb(255 255 255 / 2.3%) 1px,transparent 1px),linear-gradient(90deg,rgb(255 255 255 / 2.3%) 1px,transparent 1px);
+      background-size:3.2rem 3.2rem;
+      mask-image:linear-gradient(to bottom,rgb(0 0 0 / 45%),transparent 72%);
+    }
+    .icon-defs { position:absolute; width:0; height:0; overflow:hidden; }
+    .shell { width:min(76rem,calc(100% - 2.5rem)); }
+    header.shell {
+      position:relative; z-index:5; min-height:4.75rem; margin-top:1rem; padding:0 1rem;
+      border:1px solid var(--line); border-radius:1.1rem;
+      background:rgb(12 13 16 / 74%); box-shadow:0 14px 40px rgb(0 0 0 / 24%);
+      backdrop-filter:blur(18px);
+    }
+    .brand { gap:.85rem; color:var(--ink); font-family:inherit; }
+    .gluevenir-mark { width:2.55rem; height:2.55rem; flex:0 0 auto; filter:drop-shadow(0 8px 14px rgb(180 32 38 / 24%)); }
+    .brand-copy { display:grid; gap:.05rem; line-height:1; }
+    .brand-copy strong { font-size:1rem; letter-spacing:-.02em; }
+    .brand-copy small { color:var(--quiet); font-size:.62rem; font-weight:750; letter-spacing:.13em; text-transform:uppercase; }
+    .top-nav { display:flex; align-items:center; gap:.55rem; }
+    .header-note,.company-link {
+      display:flex; align-items:center; gap:.5rem; min-height:2.35rem; padding:.55rem .7rem;
+      border:1px solid transparent; border-radius:.72rem; color:var(--muted);
+      font-size:.68rem; font-weight:800; letter-spacing:.08em; text-decoration:none; text-transform:uppercase;
+    }
+    .company-link { gap:.7rem; padding:.35rem .65rem; color:var(--ink); font-size:.86rem; letter-spacing:.1em; }
+    .header-note:hover,.company-link:hover { border-color:var(--line); background:rgb(255 255 255 / 5%); color:var(--ink); }
+    .obsidian-mark { width:2.4rem; height:2.4rem; flex:0 0 auto; color:var(--ink); filter:drop-shadow(0 6px 12px rgb(255 255 255 / 8%)); }
+    main { padding:clamp(3.6rem,7vw,6.8rem) 0 4rem; }
+    .hero { grid-template-columns:minmax(0,1.08fr) minmax(20rem,.78fr); gap:clamp(2.5rem,7vw,6.5rem); }
+    .eyebrow,.kicker { color:var(--accent-bright); font-size:.72rem; letter-spacing:.16em; }
+    h1,h2,h3 { font-family:inherit; text-wrap:balance; }
+    h1 {
+      max-width:11ch; margin:.8rem 0 1.35rem; font-size:clamp(3.35rem,7.2vw,6.15rem);
+      font-weight:780; line-height:.94; letter-spacing:-.065em;
+    }
+    h1 span { color:var(--accent-bright); }
+    .lede { max-width:42rem; color:#cfd0d4; font-size:clamp(1.04rem,1.6vw,1.22rem); line-height:1.62; }
+    .hero-actions { margin-top:1.65rem; gap:1.1rem; }
+    .hero-cta {
+      padding:.9rem 1.15rem; border:1px solid rgb(255 255 255 / 20%); border-radius:.8rem;
+      background:linear-gradient(135deg,var(--accent),#7f141a); box-shadow:0 12px 32px rgb(180 32 38 / 30%);
+      transition:transform 160ms ease,box-shadow 160ms ease,background 160ms ease;
+    }
+    .hero-cta:hover { background:linear-gradient(135deg,var(--accent-bright),var(--accent)); box-shadow:0 16px 40px rgb(180 32 38 / 38%); transform:translateY(-2px); }
+    .live-note { color:var(--muted); }
+    .live-note::before { background:var(--allow); box-shadow:0 0 0 .3rem rgb(88 214 160 / 10%); }
+    .proof {
+      position:relative; display:grid; grid-template-rows:auto minmax(15.8rem,1fr) auto; min-height:26rem; padding:1.25rem;
+      overflow:hidden; border-color:var(--line); border-radius:1.45rem;
+      background:linear-gradient(145deg,rgb(34 36 43 / 92%),rgb(11 12 15 / 96%));
+      box-shadow:var(--shadow); transform:perspective(80rem) rotateY(-5deg) rotateX(2deg); transform-style:preserve-3d;
+    }
+    .proof::before,.proof::after { position:absolute; content:""; pointer-events:none; }
+    .proof::before { inset:13% 10% 33%; border-radius:50%; background:rgb(180 32 38 / 25%); filter:blur(3.5rem); }
+    .proof::after { inset:1.1rem; border:1px solid rgb(255 255 255 / 6%); border-radius:1rem; }
+    .proof-label { position:relative; z-index:2; color:var(--quiet); letter-spacing:.14em; }
+    .system-visual { position:relative; z-index:1; height:15.8rem; margin:.2rem .1rem 1.1rem; transform-style:preserve-3d; }
+    .system-plane {
+      position:absolute; display:grid; gap:.28rem; width:68%; min-height:5.3rem; padding:1rem;
+      border:1px solid rgb(255 255 255 / 14%); border-radius:.95rem;
+      background:linear-gradient(145deg,rgb(37 39 46 / 95%),rgb(15 16 20 / 95%));
+      box-shadow:0 18px 30px rgb(0 0 0 / 38%); transform-style:preserve-3d;
+    }
+    .system-plane span { color:var(--accent-bright); font:800 .59rem/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.13em; text-transform:uppercase; }
+    .system-plane strong { color:var(--ink); font-size:.92rem; }
+    .system-plane small { color:var(--quiet); font-size:.69rem; line-height:1.4; }
+    .plane-memory { z-index:1; top:.4rem; left:.4rem; transform:rotate(-4deg); }
+    .plane-gateway { z-index:2; top:5.15rem; left:16%; border-color:rgb(239 85 89 / 42%); transform:translateZ(1.5rem); }
+    .plane-model { z-index:1; right:.1rem; bottom:.3rem; transform:rotate(3deg); }
+    .gateway-signal { position:absolute; z-index:3; top:7.15rem; right:10%; width:.62rem; height:.62rem; border-radius:50%; background:var(--accent-bright); box-shadow:0 0 0 .45rem rgb(239 85 89 / 11%),0 0 2rem var(--accent); }
+    .proof dl { position:relative; z-index:2; grid-template-columns:repeat(3,1fr); gap:.65rem; }
+    .proof dl div { display:block; padding:.7rem; border:1px solid rgb(255 255 255 / 8%); border-radius:.7rem; background:rgb(255 255 255 / 3%); }
+    .proof dt { margin-bottom:.35rem; color:var(--accent-bright); font-size:.72rem; }
+    .proof dd { color:var(--muted); font-size:.68rem; }
+    .architecture { grid-template-columns:repeat(5,minmax(0,1fr)); gap:.7rem; margin:4rem 0 5.5rem; border:0; border-radius:0; overflow:visible; }
+    .architecture div {
+      position:relative; min-height:6.5rem; padding:1rem; border:1px solid var(--line); border-radius:.9rem;
+      background:linear-gradient(145deg,rgb(27 29 35 / 88%),rgb(13 14 17 / 90%)); box-shadow:0 12px 32px rgb(0 0 0 / 22%);
+    }
+    .architecture div::before { display:block; width:1.5rem; height:2px; margin-bottom:.9rem; content:""; background:var(--accent-bright); }
+    .architecture div+div { border-left:1px solid var(--line); }
+    .architecture strong { color:var(--ink); }
+    .architecture span { color:var(--quiet); }
+    .architecture .architecture-step {
+      margin-bottom:.55rem; color:var(--accent-bright); font:800 .61rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+      letter-spacing:.1em; text-transform:uppercase;
+    }
+    .action-standards {
+      display:grid; grid-template-columns:minmax(18rem,.72fr) minmax(0,1.28fr); gap:clamp(1.5rem,4vw,3rem); align-items:start;
+      margin:0 0 clamp(4.5rem,9vw,8rem); padding:clamp(1.2rem,3vw,2rem); border:1px solid rgb(239 85 89 / 28%);
+      border-radius:1.25rem; background:linear-gradient(135deg,rgb(180 32 38 / 12%),rgb(20 21 26 / 90%) 42%,rgb(10 11 14 / 96%));
+      box-shadow:var(--shadow);
+    }
+    .action-standards-copy h2 { max-width:15ch; margin:.35rem 0 .8rem; font-size:clamp(1.8rem,3vw,2.65rem); }
+    .action-standards-copy p:last-child { max-width:35rem; margin:0; color:var(--muted); font-size:.85rem; line-height:1.65; }
+    .action-standards-copy a { color:var(--ink); font-weight:800; text-underline-offset:.2rem; }
+    .decision-rail { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.6rem; }
+    .decision-feature {
+      min-width:0; min-height:8.7rem; padding:.85rem; border:1px solid var(--line); border-radius:.85rem;
+      background:rgb(5 6 8 / 54%); box-shadow:inset 0 1px 0 rgb(255 255 255 / 3%);
+    }
+    .decision-feature::before { display:block; width:1.35rem; height:2px; margin-bottom:.8rem; content:""; background:var(--decision-accent); }
+    .decision-feature strong,.decision-feature span { display:block; }
+    .decision-feature strong { margin-bottom:.5rem; color:var(--decision-accent); font-size:.7rem; letter-spacing:.07em; }
+    .decision-feature span { color:var(--muted); font-size:.69rem; line-height:1.5; }
+    .decision-feature[data-decision="ALLOW"] { --decision-accent:var(--allow); }
+    .decision-feature[data-decision="MODIFY"] { --decision-accent:var(--modify); }
+    .decision-feature[data-decision="STEP_UP"] { --decision-accent:var(--step); }
+    .decision-feature[data-decision="DEFER"] { --decision-accent:var(--defer); }
+    .decision-feature[data-decision="DENY"] { --decision-accent:var(--deny); }
+    .demo-head { gap:3rem; margin-bottom:1.5rem; }
+    h2 { font-size:clamp(2.15rem,4vw,3.5rem); font-weight:760; line-height:1; letter-spacing:-.05em; }
+    .demo-head>p,.controls-head p { color:var(--muted); }
+    .run-bar {
+      display:grid; grid-template-columns:minmax(13rem,.5fr) minmax(0,1.5fr); gap:1rem 1.3rem; align-items:start;
+      padding:1.15rem; border-color:var(--line); border-radius:1.15rem;
+      background:linear-gradient(145deg,rgb(25 27 32 / 94%),rgb(12 13 16 / 96%)); box-shadow:var(--shadow);
+    }
+    .run-context { padding:.65rem .35rem; }
+    .run-context strong { color:var(--ink); }
+    .run-context span { color:var(--quiet); line-height:1.5; }
+    .composer-fields { min-width:0; }
+    .field-label { color:var(--quiet); }
+    textarea {
+      min-height:6.4rem; padding:1rem; border-color:rgb(255 255 255 / 18%); border-radius:.85rem;
+      background:rgb(5 6 8 / 76%); color:var(--ink); line-height:1.55; box-shadow:inset 0 1px 0 rgb(255 255 255 / 3%);
+    }
+    textarea:focus { border-color:var(--accent-bright); }
+    .composer-actions { grid-column:1/-1; }
+    .input-note { color:var(--quiet); }
+    .run {
+      min-width:13rem; padding:.9rem 1.2rem; border-color:rgb(255 255 255 / 16%); border-radius:.75rem;
+      background:linear-gradient(135deg,var(--accent),#781117); box-shadow:0 12px 28px rgb(180 32 38 / 27%); color:#fff;
+      font-family:inherit; letter-spacing:-.01em;
+    }
+    .run:hover { background:linear-gradient(135deg,var(--accent-bright),var(--accent)); }
+    .result { margin-top:1rem; border-color:var(--line); border-radius:1.35rem; background:rgb(12 13 16 / 93%); box-shadow:var(--shadow); }
+    .status { padding:.75rem 1rem; border-bottom-color:var(--line); background:rgb(255 255 255 / 3%); color:var(--muted); }
+    .mode { color:var(--ink); }
+    .conversation { gap:1rem; padding:clamp(1rem,2.8vw,2rem); }
+    .avatar { border-color:rgb(255 255 255 / 14%); border-radius:.75rem; background:linear-gradient(145deg,#24262d,#0e0f12); box-shadow:0 8px 20px rgb(0 0 0 / 30%); }
+    .user-turn .avatar { background:linear-gradient(145deg,var(--accent),#651015); }
+    .message { border-color:var(--line); border-radius:.2rem 1rem 1rem 1rem; background:rgb(26 28 33 / 92%); }
+    .user-turn .message { border-color:var(--line); background:rgb(255 255 255 / 5%); }
+    .speaker { color:var(--quiet); }
+    .prompt { color:var(--ink); }
+    .intercept {
+      padding:1rem; border-color:rgb(255 255 255 / 14%); border-radius:1rem;
+      background:linear-gradient(145deg,rgb(29 31 37 / 96%),rgb(13 14 17 / 98%));
+      box-shadow:0 16px 36px rgb(0 0 0 / 25%);
+    }
+    .intercept-head span { color:var(--accent-bright); }
+    .memory-card { border-color:var(--line); border-radius:.78rem; background:rgb(5 6 8 / 68%); }
+    .memory-card strong { color:#dedfe2; font-size:.82rem; }
+    .memory-card.approved { border-color:rgb(239 85 89 / 48%); background:rgb(180 32 38 / 7%); }
+    .memory-card.approved .tag,.flow-arrow { color:var(--accent-bright); }
+    .gateway-copy { color:var(--muted); }
+    .pill { background:rgb(255 255 255 / 3%); }
+    .summary { color:#d9dade; font-size:1rem; line-height:1.65; }
+    .outcome h3 { font-size:clamp(1.28rem,2.15vw,1.72rem); font-weight:760; line-height:1.16; letter-spacing:-.025em; }
+    .boundary { border-color:var(--line); border-radius:.8rem; background:rgb(255 255 255 / 4%); color:var(--muted); }
+    .check { color:var(--accent-bright); }
+    .receipt { border-color:var(--line); border-radius:.9rem; background:rgb(7 8 10 / 80%); }
+    .safe,.receipt summary::after,.verify[data-verified="true"] { color:var(--accent-bright); }
+    .receipt dd { color:#d5d6da; }
+    .controls { margin-top:clamp(4.5rem,9vw,8rem); }
+    .control-grid { gap:1rem; }
+    .control-card {
+      padding:1.5rem; border-color:var(--line); border-radius:1.15rem;
+      background:linear-gradient(145deg,rgb(25 27 32 / 88%),rgb(11 12 15 / 92%)); box-shadow:0 20px 50px rgb(0 0 0 / 25%);
+    }
+    .control-card>p,.control-card dd { color:var(--muted); }
+    .control-card dl div { border-top-color:var(--line); }
+    .control-card dt a,.control-card dd strong { color:var(--ink); }
+    .scope-tag { border-color:var(--line); color:var(--quiet); }
+    .disclosure { gap:1rem; margin-top:6rem; }
+    .disclosure article { border:1px solid var(--line); border-radius:1rem; background:rgb(255 255 255 / 2.5%); }
+    .disclosure p { color:var(--muted); }
+    footer { padding:2rem 0 2.5rem; border-top-color:var(--line); background:rgb(0 0 0 / 22%); color:var(--muted); }
+    .footer-grid { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2rem; align-items:center; }
+    .footer-brand { display:flex; align-items:flex-start; gap:.8rem; max-width:48rem; }
+    .footer-brand .gluevenir-mark { width:2.2rem; height:2.2rem; }
+    .footer-brand p { margin:0; font-size:.76rem; line-height:1.6; }
+    .footer-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.45rem .95rem; }
+    .footer-links a { color:var(--ink); font-size:.75rem; font-weight:700; text-underline-offset:.22rem; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    select:focus-visible { outline:3px solid var(--accent-bright); outline-offset:3px; }
+    .persona-workspace { display:grid; gap:.85rem; margin-bottom:1rem; }
+    .workspace-label { display:grid; grid-template-columns:2.2rem auto 1fr; gap:.8rem; align-items:center; color:var(--muted); }
+    .workspace-label>span { display:grid; width:2.05rem; height:2.05rem; place-items:center; border:1px solid var(--line); border-radius:50%; color:var(--accent-bright); font-size:.78rem; font-weight:900; }
+    .workspace-label strong { color:var(--ink); font-size:.94rem; }
+    .workspace-label small { font-size:.82rem; line-height:1.45; }
+    .prompt-label { margin-top:.35rem; }
+    .personas { display:grid; grid-template-columns:repeat(4,1fr); gap:.7rem; }
+    .persona { display:flex; min-height:5.35rem; align-items:center; gap:.75rem; padding:.8rem; border:1px solid var(--line); border-radius:.9rem; background:linear-gradient(145deg,rgb(24 26 31 / 92%),rgb(12 13 16 / 94%)); text-align:left; cursor:pointer; transition:transform 150ms ease,border-color 150ms ease,background 150ms ease; }
+    .persona:hover { border-color:rgb(255 255 255 / 28%); transform:translateY(-2px); }
+    .persona[aria-pressed="true"] { border-color:rgb(239 85 89 / 65%); background:linear-gradient(145deg,rgb(180 32 38 / 16%),rgb(12 13 16 / 96%)); box-shadow:0 12px 34px rgb(0 0 0 / 28%),0 0 25px rgb(180 32 38 / 10%); }
+    .persona-icon { display:grid; width:2.2rem; height:2.2rem; flex:0 0 auto; place-items:center; border:1px solid var(--line); border-radius:.68rem; background:rgb(255 255 255 / 4%); color:var(--accent-bright); font-size:.66rem; font-weight:900; }
+    .persona strong,.persona small { display:block; }
+    .persona strong { margin-bottom:.2rem; color:var(--ink); font-size:.78rem; }
+    .persona small { color:var(--quiet); font-size:.67rem; line-height:1.35; }
+    .prompt-chips { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .prompt-chip,.library-modes button { min-height:2.75rem; padding:.62rem .8rem; border:1px solid var(--line); border-radius:999px; background:rgb(255 255 255 / 3%); color:var(--muted); font-size:.72rem; font-weight:750; cursor:pointer; }
+    .prompt-chip:hover,.library-modes button:hover { border-color:rgb(255 255 255 / 30%); color:var(--ink); }
+    .prompt-chip[aria-pressed="true"],.library-modes button[aria-pressed="true"] { border-color:var(--accent-bright); background:rgb(180 32 38 / 14%); color:var(--ink); }
+    .persona:disabled,.prompt-chip:disabled { cursor:wait; opacity:.58; }
+    .conversation { grid-template-columns:minmax(0,1fr); }
+    .chat-turn { width:100%; min-width:0; }
+    .governance-stream,.intercept,.receipt { width:calc(100% - 2.95rem); min-width:0; margin-left:2.95rem; }
+    .governance-stream { padding:1rem; border:1px solid var(--line); border-radius:1rem; background:rgb(255 255 255 / 2.5%); }
+    .governance-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:.75rem; }
+    .governance-head strong { font-size:.82rem; }
+    .governance-head span { color:var(--quiet); font-size:.67rem; text-transform:uppercase; letter-spacing:.1em; }
+    .governance-stream ol { display:grid; gap:.5rem; margin:0; padding:0; list-style:none; }
+    .governance-step { display:grid; grid-template-columns:1rem 1fr auto; gap:.6rem; align-items:center; color:var(--muted); font-size:.75rem; }
+    .governance-step { animation:governance-in 180ms ease-out both; }
+    .governance-step::before { width:.55rem; height:.55rem; border:1px solid var(--quiet); border-radius:50%; content:""; }
+    .governance-step[data-state="complete"] { color:var(--ink); }
+    .governance-step[data-state="complete"]::before { border-color:var(--allow); background:var(--allow); box-shadow:0 0 0 .22rem rgb(88 214 160 / 9%); }
+    .governance-step[data-state="waiting"]::before { border-color:var(--step); background:var(--step); box-shadow:0 0 0 .18rem rgb(244 189 97 / 8%); }
+    .governance-step small { color:var(--quiet); font-size:.65rem; }
+    .governance-step[data-state="error"] { color:var(--deny); }
+    .governance-step[data-state="error"]::before { border-color:var(--deny); background:var(--deny); }
+    .result {
+      --decision-color:var(--allow);
+      --decision-wash:rgb(88 214 160 / 8%);
+    }
+    .result[data-decision="MODIFY"] { --decision-color:var(--modify); --decision-wash:rgb(93 185 230 / 8%); }
+    .result[data-decision="STEP_UP"] { --decision-color:var(--step); --decision-wash:rgb(244 189 97 / 9%); }
+    .result[data-decision="DEFER"] { --decision-color:var(--defer); --decision-wash:rgb(186 143 234 / 9%); }
+    .result[data-decision="DENY"] { --decision-color:var(--deny); --decision-wash:rgb(239 109 114 / 9%); }
+    .result[data-decision] .mode[data-mode="live"] .dot,
+    .result[data-decision] .governance-step[data-state="complete"]::before {
+      border-color:var(--decision-color); background:var(--decision-color); box-shadow:0 0 0 .2rem var(--decision-wash);
+    }
+    .result[data-decision] .intercept-head span,
+    .result[data-decision] .memory-card.approved .tag,
+    .result[data-decision] .flow-arrow,
+    .result[data-decision] .check,
+    .result[data-decision] .safe,
+    .result[data-decision] .receipt summary::after,
+    .result[data-decision] .verify[data-verified="true"] { color:var(--decision-color); }
+    .result[data-decision] .memory-card.approved { border-color:var(--decision-color); background:var(--decision-wash); }
+    .result[data-decision] .boundary { border-left:3px solid var(--decision-color); background:var(--decision-wash); }
+    .result[data-decision] .receipt { border-top-color:var(--decision-color); }
+    .result[data-decision="STEP_UP"] .governance-step[data-state="complete"]::before { box-shadow:0 0 0 .22rem rgb(244 189 97 / 10%); }
+    .result[data-decision="DENY"] .governance-step[data-state="complete"]::before { box-shadow:0 0 0 .22rem rgb(239 109 114 / 10%); }
+    .result[data-state="error"] .dot { background:var(--deny); box-shadow:none; }
+    @keyframes governance-in { from { opacity:0; transform:translateY(.25rem); } }
+    .memory-library,#control-map,#observability { scroll-margin-top:6.6rem; }
+    .library-head { display:grid; grid-template-columns:minmax(22rem,.72fr) minmax(34rem,1.28fr); gap:clamp(2rem,5vw,5rem); align-items:end; max-width:none; }
+    .library-toolbar { display:grid; grid-template-columns:minmax(18rem,1.4fr) repeat(3,minmax(9rem,.55fr)); gap:.75rem; padding:1rem; border:1px solid var(--line); border-radius:1rem; background:rgb(255 255 255 / 3%); }
+    .library-modes { display:flex; align-items:end; gap:.5rem; }
+    .library-toolbar label { display:grid; gap:.35rem; color:var(--quiet); font-size:.65rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
+    .library-toolbar select { min-height:2.75rem; padding:.55rem .65rem; border:1px solid var(--line); border-radius:.65rem; background:#101116; color:var(--ink); font:inherit; font-size:.75rem; }
+    .library-boundary { margin:.8rem 0 1rem; padding:.75rem .9rem; border-left:3px solid var(--accent-bright); background:rgb(180 32 38 / 8%); color:var(--muted); font-size:.78rem; line-height:1.5; }
+    .library-boundary strong { color:var(--ink); }
+    .memory-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; }
+    .library-loading { color:var(--muted); }
+    .library-card { min-width:0; padding:1rem; border:1px solid var(--line); border-radius:1rem; background:linear-gradient(145deg,rgb(24 26 31 / 90%),rgb(11 12 15 / 92%)); box-shadow:0 14px 35px rgb(0 0 0 / 20%); }
+    .library-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:.7rem; margin-bottom:.7rem; }
+    .library-card h3 { margin:0; font-size:.9rem; line-height:1.3; }
+    .library-card .room { color:var(--accent-bright); font-size:.6rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
+    .library-card .memory-copy { min-height:4.2rem; margin:0 0 .8rem; color:#d6d7db; font-size:.76rem; line-height:1.55; }
+    .memory-meta { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.8rem; }
+    .memory-meta span { padding:.2rem .42rem; border:1px solid var(--line); border-radius:999px; color:var(--quiet); font-size:.58rem; }
+    .realism-basis { margin:.1rem 0 .8rem; border-top:1px solid var(--line); }
+    .realism-basis summary { padding:.65rem 0 .35rem; color:var(--muted); font-size:.68rem; font-weight:800; cursor:pointer; }
+    .realism-basis p { margin:.25rem 0 .45rem; color:var(--quiet); font-size:.7rem; line-height:1.5; }
+    .realism-basis ul { display:grid; gap:.3rem; margin:.35rem 0 .2rem; padding-left:1rem; }
+    .realism-basis a { color:var(--ink); font-size:.68rem; text-underline-offset:.18rem; }
+    .try-memory { min-height:2.5rem; padding:.5rem .65rem; border:1px solid var(--line); border-radius:.6rem; background:transparent; color:var(--ink); font-size:.7rem; font-weight:800; cursor:pointer; }
+    .try-memory:hover { border-color:var(--accent-bright); color:var(--accent-bright); }
+    .source-basis { margin-top:1.2rem; padding:1rem; border:1px solid var(--line); border-radius:1rem; background:rgb(255 255 255 / 2.5%); }
+    .source-basis h3 { margin-bottom:.35rem; font-size:.9rem; }
+    .source-basis p { color:var(--muted); font-size:.75rem; line-height:1.5; }
+    .source-basis ul { display:flex; flex-wrap:wrap; gap:.5rem 1rem; margin:0; padding:0; list-style:none; }
+    .source-basis a { color:var(--ink); font-size:.72rem; text-underline-offset:.2rem; }
+    /* Wave E review contract: shared geometry, persona-first browsing, and evidence navigation. */
+    .shell { width:min(86rem,calc(100% - 2.5rem)); }
+    header.shell { position:sticky; top:.65rem; }
+    .top-nav { min-width:0; }
+    .header-note { padding:.5rem .6rem; font-size:.63rem; letter-spacing:.07em; }
+    .company-link { margin-left:.2rem; }
+    main { padding-top:clamp(3.4rem,6vw,5.8rem); }
+    .hero { grid-template-columns:minmax(0,1.12fr) minmax(21rem,.74fr); gap:clamp(2.4rem,6vw,5.4rem); }
+    h1 { max-width:14ch; font-size:clamp(2.55rem,5.15vw,4.6rem); line-height:.96; letter-spacing:-.058em; }
+    .lede { max-width:46rem; }
+    .architecture,.persona-workspace,.run-bar,.result,.memory-browser,.source-basis,.dashboard-frame-shell,.control-grid { width:100%; }
+    .synthetic-notice {
+      display:grid; grid-template-columns:auto minmax(0,1fr); gap:.9rem; align-items:center; margin:0 0 1rem; padding:.85rem 1rem;
+      border:1px solid rgb(239 85 89 / 30%); border-radius:.9rem; background:rgb(180 32 38 / 9%);
+    }
+    .synthetic-notice p { margin:0; color:var(--muted); font-size:.78rem; line-height:1.5; }
+    .synthetic-badge,.compact-synthetic {
+      display:inline-flex; align-items:center; width:max-content; padding:.3rem .56rem; border:1px solid rgb(239 85 89 / 50%);
+      border-radius:999px; background:rgb(180 32 38 / 13%); color:#ff8588; font-size:.62rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase;
+    }
+    .compact-synthetic { margin-right:.35rem; padding:.14rem .38rem; font-size:.56rem; }
+    .library-toolbar {
+      position:sticky; z-index:4; top:6.2rem; grid-template-columns:minmax(15rem,1.35fr) minmax(14rem,1.25fr) repeat(5,minmax(8rem,.65fr));
+      align-items:end; backdrop-filter:blur(20px); background:rgb(12 13 16 / 94%); box-shadow:0 14px 34px rgb(0 0 0 / 30%);
+    }
+    .library-search-label { grid-column:auto; }
+    .library-toolbar input,.library-toolbar select {
+      width:100%; min-height:2.75rem; padding:.55rem .65rem; border:1px solid var(--line); border-radius:.65rem; background:#101116; color:var(--ink); font:inherit; font-size:.75rem;
+    }
+    .library-toolbar input::placeholder { color:var(--quiet); }
+    .memory-browser {
+      display:grid; grid-template-columns:minmax(22rem,.9fr) minmax(24rem,1.1fr); min-height:36rem; overflow:hidden;
+      border:1px solid var(--line); border-radius:1.1rem; background:rgb(12 13 16 / 88%); box-shadow:var(--shadow);
+    }
+    .memory-list-pane { display:grid; grid-template-rows:1fr auto; min-width:0; border-right:1px solid var(--line); }
+    .memory-list { min-width:0; }
+    .memory-row {
+      display:grid; grid-template-columns:2.1rem minmax(0,1fr) auto; gap:.7rem; width:100%; min-height:4.35rem; align-items:center; padding:.72rem .85rem;
+      border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--ink); text-align:left; cursor:pointer;
+    }
+    .memory-row:hover { background:rgb(255 255 255 / 4%); }
+    .memory-row[aria-current="true"] { background:linear-gradient(90deg,rgb(180 32 38 / 22%),rgb(180 32 38 / 5%)); box-shadow:inset 3px 0 0 var(--accent-bright); }
+    .memory-row-index { color:var(--quiet); font:700 .68rem/1 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .memory-row-copy { min-width:0; }
+    .memory-row-copy strong,.memory-row-copy small { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .memory-row-copy strong { margin-bottom:.22rem; font-size:.78rem; }
+    .memory-row-copy small { color:var(--quiet); font-size:.65rem; }
+    .memory-row-status { padding:.22rem .42rem; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.56rem; text-transform:uppercase; }
+    .memory-pagination { display:grid; grid-template-columns:auto 1fr auto; gap:.65rem; align-items:center; min-height:3.6rem; padding:.65rem .8rem; border-top:1px solid var(--line); }
+    .memory-pagination button { min-height:2.25rem; padding:.4rem .65rem; border:1px solid var(--line); border-radius:.55rem; background:rgb(255 255 255 / 3%); cursor:pointer; }
+    .memory-pagination button:disabled { cursor:not-allowed; opacity:.42; }
+    .memory-pagination span { color:var(--quiet); font-size:.65rem; text-align:center; }
+    .memory-detail { min-width:0; padding:clamp(1rem,2.2vw,1.6rem); }
+    .memory-detail-head { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding-bottom:1rem; border-bottom:1px solid var(--line); }
+    .memory-detail h3 { margin:0 0 .35rem; font-size:clamp(1.15rem,2vw,1.55rem); }
+    .memory-detail-path { color:var(--quiet); font-size:.7rem; }
+    .memory-detail-copy { margin:1.2rem 0; color:#d6d7db; font-size:.9rem; line-height:1.65; }
+    .memory-detail[data-relevant="false"] .memory-detail-path { color:var(--quiet); }
+    .memory-detail dl { display:grid; margin:0 0 1rem; }
+    .memory-detail dl div { display:grid; grid-template-columns:7.5rem minmax(0,1fr); gap:1rem; padding:.68rem 0; border-top:1px solid var(--line); }
+    .memory-detail dt { color:var(--quiet); font-size:.68rem; }
+    .memory-detail dd { margin:0; color:var(--ink); font-size:.75rem; overflow-wrap:anywhere; }
+    .memory-detail .realism-basis { margin-top:1rem; }
+    .observability-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(20rem,.75fr); gap:2rem; align-items:end; max-width:none; }
+    .observability-head>p { margin:0; }
+    .telemetry-notice { display:flex; flex-wrap:wrap; gap:.65rem; align-items:center; margin-bottom:.8rem; color:var(--quiet); font-size:.72rem; }
+    .dashboard-links { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.8rem; }
+    .dashboard-links a {
+      padding:.62rem .8rem; border:1px solid var(--line); border-radius:999px; background:rgb(255 255 255 / 3%); color:var(--muted); font-size:.7rem; font-weight:750; text-decoration:none;
+    }
+    .dashboard-links a:hover,.dashboard-links a[aria-current="page"] { border-color:var(--accent-bright); background:rgb(180 32 38 / 13%); color:var(--ink); }
+    .dashboard-links a[aria-disabled="true"] { cursor:not-allowed; opacity:.46; }
+    .dashboard-frame-shell { overflow:hidden; border:1px solid var(--line); border-radius:1.1rem; background:#0b0c0f; box-shadow:var(--shadow); }
+    .dashboard-frame-head { display:flex; justify-content:space-between; gap:1rem; align-items:center; min-height:3.4rem; padding:.75rem 1rem; border-bottom:1px solid var(--line); }
+    .dashboard-frame-head strong { font-size:.82rem; }
+    .dashboard-frame-head a { color:var(--accent-bright); font-size:.7rem; font-weight:800; text-underline-offset:.2rem; }
+    .dashboard-frame-head a[aria-disabled="true"] { pointer-events:none; color:var(--quiet); }
+    #dashboard-frame { display:block; width:100%; height:120rem; border:0; background:#0b0c0f; }
+    #dashboard-frame[data-dashboard-view="traces"] { height:72rem; }
+    #dashboard-frame[hidden] { display:none; }
+    .dashboard-placeholder { display:grid; min-height:22rem; place-content:center; padding:2rem; text-align:center; }
+    .dashboard-placeholder strong { margin-bottom:.5rem; }
+    .dashboard-placeholder p { max-width:36rem; margin:0; color:var(--quiet); line-height:1.6; }
+    @media (max-width:62rem) {
+      .hero { grid-template-columns:minmax(0,1fr) minmax(18rem,.72fr); gap:2.4rem; }
+      .proof { min-height:25rem; transform:none; }
+      .personas { grid-template-columns:repeat(2,1fr); }
+      .top-nav .header-note:nth-child(2) { display:none; }
+      .library-toolbar { position:static; grid-template-columns:1fr 1fr 1fr; }
+      .library-modes,.library-search-label { grid-column:span 2; }
+      .architecture { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .action-standards { grid-template-columns:1fr; }
+    }
+    @media (max-width:48rem) {
+      .shell { width:min(100% - 1.5rem,76rem); }
+      header.shell { margin-top:.65rem; }
+      .company-link span { display:none; }
+      .company-link { padding:.3rem; }
+      .obsidian-mark { width:2rem; height:2rem; }
+      main { padding-top:3.2rem; }
+      .hero,.demo-head,.control-grid,.footer-grid,.library-head,.observability-head { grid-template-columns:1fr; }
+      .proof { display:block; max-width:30rem; min-height:auto; }
+      .system-visual { height:14rem; }
+      .architecture { grid-template-columns:repeat(2,1fr); margin:3rem 0 4.5rem; }
+      .architecture div:nth-child(n+3) { border-top:1px solid var(--line); }
+      .run-bar { grid-template-columns:1fr; }
+      .composer-actions { grid-column:auto; }
+      .footer-links { justify-content:flex-start; }
+      .top-nav .header-note { display:none; }
+      .library-toolbar { grid-template-columns:1fr 1fr; }
+      .memory-browser { grid-template-columns:1fr; }
+      .memory-list-pane { border-right:0; border-bottom:1px solid var(--line); }
+      .decision-rail { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+    @media (max-width:34rem) {
+      .header-note { display:none; }
+      .brand-copy small { display:none; }
+      h1 { max-width:12ch; font-size:clamp(2.6rem,12vw,3.45rem); line-height:.97; }
+      .hero { gap:2rem; }
+      .proof { padding:1rem; }
+      .proof dl { grid-template-columns:1fr; }
+      .system-visual { display:grid; gap:.6rem; height:auto; min-height:0; margin:.2rem 0 1rem; }
+      .system-plane { position:relative; inset:auto; width:100%; min-height:0; padding:.78rem; transform:none; }
+      .plane-memory,.plane-gateway,.plane-model { inset:auto; transform:none; }
+      .gateway-signal { display:none; }
+      .architecture { display:grid; grid-template-columns:1fr; }
+      .architecture div { min-height:5.8rem; }
+      .decision-rail { grid-template-columns:1fr; }
+      .decision-feature { min-height:0; }
+      .personas { grid-template-columns:1fr; }
+      .workspace-label { grid-template-columns:2.2rem 1fr; }
+      .workspace-label small { grid-column:2; }
+      .intercept,.receipt,.governance-stream { width:100%; margin-left:0; }
+      .composer-actions { align-items:stretch; }
+      .footer-brand { align-items:flex-start; }
+      .synthetic-notice { grid-template-columns:1fr; }
+      .library-toolbar { grid-template-columns:1fr; }
+      .library-modes,.library-search-label { grid-column:auto; }
+      .library-modes { align-items:stretch; flex-direction:column; }
+      .memory-row { grid-template-columns:1.5rem minmax(0,1fr); }
+      .memory-row-status { grid-column:2; width:max-content; }
+      .memory-detail dl div { grid-template-columns:1fr; gap:.2rem; }
+      .dashboard-links { display:grid; grid-template-columns:1fr 1fr; }
+      #dashboard-frame { height:180rem; }
+      #dashboard-frame[data-dashboard-view="traces"] { height:76rem; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .proof { transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true" focusable="false">
+    <symbol id="gluevenir-symbol" viewBox="0 0 64 64">
+      <path d="M15 15 32 32 15 49M32 32h17" fill="none" stroke="#f6f5f1" stroke-opacity=".48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M15 49 32 32h17" fill="none" stroke="#ef5559" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="m15 8 7 4v8l-7 4-7-4v-8l7-4Z" fill="#121318" stroke="#f6f5f1" stroke-width="2"/>
+      <path d="m15 40 7 4v8l-7 4-7-4v-8l7-4Z" fill="#121318" stroke="#ef5559" stroke-width="2.4"/>
+      <path d="m49 23 7 4v8l-7 4-7-4v-8l7-4Z" fill="#121318" stroke="#ef5559" stroke-width="2.4"/>
+      <circle cx="32" cy="32" r="5.5" fill="#f6f5f1"/><circle cx="32" cy="32" r="2.5" fill="#b42026"/>
+    </symbol>
+    <symbol id="obsidiantek-symbol" viewBox="0 0 231.7 225.89">
+      <path d="M228.22 102.15c2.13 2.27-.62 3.89-2.38 5.55-9.71 9.13-23.18 15.1-32.56 23.63-2.02 1.84-3.76 4.97-6.23 7.15-13.12 11.59-25.43 18.02-40.32 26.58-13.4 7.71-16.42 17.89-33.05 24.04-7.47 2.76-16.33 3.92-23.77 7.45-7.44 3.53-14.34 9.85-21.52 13.27-8.56 4.1-15.82 2.39-24.75 3.79-13.04 2.04-26.77 8.24-39.72 11.2-3.12.54-3.19-2.02-2.69-4.52 1.79-8.84 8.22-18.99 10.95-27.45 1.73-5.36 2.11-10.64 4.25-16.27 4.12-10.8 8.27-16.4 10.25-29 2.14-13.58.46-22.35-.64-35.45-.35-4.11.69-9.63-.03-13.35-.4-2.09-2.89-3.46-4.01-5.81-6.5-13.67 2.82-19.02 1.21-27.9-.3-1.67-2.27-3.33-2.97-5.13C14.45 45.02 4.75 20.97 2.16 5.77c-.27-1.56-.3-3.12-.22-4.69C14.69.29 26.14 5.71 38.33 7.95c6.5 1.2 15.19.95 20.96 2.23 3.04.67 8.3 5.51 11.76 6.98 8.13 3.43 20.04 3.58 27.86 7.82 2.67 1.45 4.07 4.15 6.78 5.71 7.29 4.21 19.19 5.9 27.11 9.46 5.51 2.48 10.49 7.67 15.73 10.14 6.62 3.13 14.47 3.51 20.22 9.21 1.78 1.78 2.92 4.83 5.05 6.55 2.53 2.03 5.43 2.14 7.92 3.68 15.77 9.7 30.76 22.5 46.52 32.41ZM59.83 14.54 6.39 5.54c3.16 11.11 6 22.55 9.79 33.46 2 5.74 4.48 12.66 6.7 18.28.87 2.2 3.51 4.62 3.87 6.91 1.36 8.52-7.04 16.2-1.44 27.23 1.12 2.21 3.77 3.11 4.24 5.58 1.11 5.83-1.1 13.84.92 20.05 2.68-3.07 7.55-3.86 10.27-6.23 4.69-4.09 16.07-20.49 17.25-26.46 1.28-6.5 3.87-27.12 2.78-32.85-.44-2.33-10.5-10.73-12.96-11.12-3.9-.62-8.1.78-11.95-.54-1.51-.52-13.73-9.49-15.62-11.14-1.44-1.25-3.11-2.77-4.04-4.42 1.65-.41 2.47.62 3.68 1.21 4.58 2.25 13.83 10.08 17.49 11.05 3.37.89 8.52-.04 12.13.07 2.12-2.55 11.67-20.11 10.32-22.08ZM65.25 17.15l-1.83.53c-1.44 5.92-8.07 13.7-9.38 19.08-.76 3.1 3.14 6.04 5.46 8 9.5 8.05 23.15 12.56 34.31 17.87l4.97-33c-1.95-3.78-27.06-6.92-32.87-10.71-.75-.49-.57-1.71-.65-1.77Zm32.33 48.87c8.37 5.92 15.73 13.65 25.07 18.18 9.05 4.39 20.11 5.99 29.62 9.31l19.83-23.31c-2.67-2.06-3.96-5.85-6.04-8.01-4.75-4.94-11.99-5.37-17.87-8-5.88-2.63-11.42-8.14-17-10.65-8.72-3.92-20.25-5.54-28.92-10.33l-4.7 32.81ZM96.49 68.89l-32.1-16.07-3.58 35.68c4.53-.02 9.79 2.11 14.24.4l21.45-20.01Zm123.09 31.22L176.3 71.86l-20.93 23.34c0 .83 13 7.4 14.68 7.61 11.75 1.42 26.52-.12 38.39-.91 3.54-.23 7.15.14 10.7 0l.45-1.78ZM98.02 72.57c-1.28.36-18.65 16.8-19.43 18.12-.59 1-.88 1.3-.83 2.61.09 2.14 4.84 13.58 6.08 16.32 5.68 12.6 13.6 23.14 24.21 31.95 12.43-3.34 24.61-7.94 35.99-13.99l20.17-21.81c.35-1.95-11.72-8.06-14.01-9.01-15.5-6.4-26.07-6.23-41.16-16.82-2.76-1.94-7.99-8.22-11.03-7.38ZM74.09 93.06l-15.07-.56-14.14 18.96c-.3 1.56 4.26 7.87 5.38 10.33 4.63 10.17 5.26 20.36 6.08 31.38.21 2.89-1.11 11.92 1.5 12.77 9.21 3.05 21.49.8 29.93-3.68 6.71-3.57 11.99-12.79 17.64-18.03-16.05-13.57-25.66-31.08-31.31-51.19Zm148.17 12.39-54.41 1.32c-7.09 6.71-14.65 18.56-22.35 24.04-10.05 7.15-27.66 9.05-36.85 14.89-2.49 1.58-5.83 7.31-8.13 9.71-8.24 8.67-14.39 12.7-26.32 15.6l-8.91 36.13c8.11-4.46 15.87-10.75 24.36-14.43 7.46-3.24 15.81-4.42 23.15-7.18 15.33-5.74 18.68-15.66 31.27-23.15 12.61-7.5 27.03-14.67 38.07-24.37 10.14-8.91 18.47-18.76 31.13-25.07l8.99-7.49ZM7.29 215.17c15.12-15.91 33.81-28.87 45.27-47.94.03-17.45 1.44-39.38-11.82-52.61l-10.27 5.14c1.28 5.68 1.3 13.2.88 19.14-1.37 19.13-8.3 28.54-13.82 45.06-.95 2.85-.86 6.4-1.98 9.62-2.53 7.27-6.54 14.03-8.27 21.61Zm62.45-43.7-14.16-2.6c-10.18 19.96-30.88 31.11-44.73 47.64-.84 1-2.17 1.45-1.78 3.12 16.66-5.43 33.81-11.28 51.61-10.82l9.05-37.34Z" fill="currentColor"/>
+    </symbol>
+  </svg>
+  <a class="skip" href="#demo">Skip to demo</a>
+  <header class="shell">
+    <a class="brand" href="#top" aria-label="Gluevenir Bio home">
+      <svg class="gluevenir-mark" aria-hidden="true"><use href="#gluevenir-symbol"/></svg>
+      <span class="brand-copy"><strong>Gluevenir Bio</strong><small>Governed memory for AI agents</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="header-note" href="#demo">Demo</a>
+      <a class="header-note" href="#memory-library">Memory Library</a>
+      <a class="header-note" href="#control-map">Evidence</a>
+      <a class="header-note" href="./compliance.html">Compliance</a>
+      <a class="header-note" href="#observability">Observability</a>
+      <a class="company-link" href="https://www.obsidiantek.io/?utm_source=gluevenir&amp;utm_medium=referral&amp;utm_campaign=agentic_memory_hackathon" target="_blank" rel="noreferrer" aria-label="Visit ObsidianTek">
+        <svg class="obsidian-mark" aria-hidden="true"><use href="#obsidiantek-symbol"/></svg><span>ObsidianTek</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="top" class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">The governed memory layer for AI agents</p>
+        <h1 id="hero-title">Critical Context. <span>Controlled Recall.</span></h1>
+        <p class="lede">Useful memory reaches the model. Restricted context does not. Gluevenir gives each authorized persona the context their work needs, then attaches independently verifiable proof.</p>
+        <div class="hero-actions"><a class="hero-cta" href="#demo">Try the live demo</a><span class="live-note">Live on AWS + CockroachDB</span></div>
+      </div>
+      <aside class="proof" aria-label="Core product properties">
+        <p class="proof-label">Authority at the center</p>
+        <div class="system-visual" aria-hidden="true">
+          <div class="system-plane plane-memory"><span>01 · CockroachDB</span><strong>Scoped memory</strong><small>Tenant + program + purpose before relevance</small></div>
+          <div class="system-plane plane-gateway"><span>02 · Gluevenir</span><strong>Memory Action Gateway</strong><small>Five deterministic decisions before execution</small></div>
+          <span class="gateway-signal"></span>
+          <div class="system-plane plane-model"><span>03 · Amazon Bedrock</span><strong>Bounded model context</strong><small>Only authorized memory crosses the boundary</small></div>
+        </div>
+        <dl>
+          <div><dt>01</dt><dd>Deterministic scope before relevance</dd></div>
+          <div><dt>02</dt><dd>Exact human-approved Safe Derivatives</dd></div>
+          <div><dt>03</dt><dd>Content-safe Recall Receipts</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="architecture" aria-label="Five-step demo architecture">
+      <div><span class="architecture-step">01 · Ask</span><strong>One agent</strong><span>A server-mapped synthetic persona sends a bounded task.</span></div>
+      <div><span class="architecture-step">02 · Recall</span><strong>CockroachDB</strong><span>Scoped persistent and vector memory finds relevant candidates.</span></div>
+      <div><span class="architecture-step">03 · Decide</span><strong>Memory Action Gateway</strong><span>Deterministic policy returns exactly one of five outcomes.</span></div>
+      <div><span class="architecture-step">04 · Generate</span><strong>Amazon Bedrock</strong><span>Only authorized context reaches embedding and generation.</span></div>
+      <div><span class="architecture-step">05 · Prove</span><strong>Recall Receipt</strong><span>Content-bound evidence is signed for independent verification.</span></div>
+    </section>
+
+    <section id="control-map" class="action-standards" aria-labelledby="controls-title">
+      <div class="action-standards-copy">
+        <p class="kicker">Agentic runtime controls</p>
+        <h2 id="controls-title">Five ways to keep memory moving safely.</h2>
+        <p>An AARM-inspired gateway decides before supported memory actions execute. Selected AIUC-1 implementation evidence covers scoped access, tenant isolation, input and output checks, bounded tools, and content-safe audit events. <a href="./compliance.html">Explore the complete mappings.</a></p>
+      </div>
+      <div class="decision-rail" aria-label="Memory Action Gateway outcomes">
+        <article class="decision-feature" data-decision="ALLOW"><strong>ALLOW</strong><span>Use memory authorized for this exact context.</span></article>
+        <article class="decision-feature" data-decision="MODIFY"><strong>MODIFY</strong><span>Substitute only an exact approved Safe Derivative.</span></article>
+        <article class="decision-feature" data-decision="STEP_UP"><strong>STEP_UP</strong><span>Pause for an authorized human decision.</span></article>
+        <article class="decision-feature" data-decision="DEFER"><strong>DEFER</strong><span>Wait for trusted context, then evaluate again.</span></article>
+        <article class="decision-feature" data-decision="DENY"><strong>DENY</strong><span>Stop before protected memory or model execution.</span></article>
+      </div>
+    </section>
+
+    <section id="demo" aria-labelledby="demo-title">
+      <div class="demo-head">
+        <div><p class="kicker">Interactive decision path</p><h2 id="demo-title">Ask once. Watch memory earn access.</h2></div>
+        <p>Choose a role, start from a realistic training scenario, and watch the agent assemble the right context for the job.</p>
+      </div>
+
+      <aside class="synthetic-notice" aria-label="Demo data notice">
+        <span class="synthetic-badge">Synthetic training data</span>
+        <p>Every person, organization, program, protocol, identifier, result, and approval in this demonstration is fictional. Automated detection is imperfect; never enter real personal, health, customer, or confidential data.</p>
+      </aside>
+
+      <div class="persona-workspace">
+        <div class="workspace-label"><span>1</span><strong>Act as a synthetic persona</strong><small>Identity and authority are mapped by the server.</small></div>
+        <div id="personas" class="personas" role="group" aria-label="Choose a synthetic persona">
+          <button class="persona" type="button" data-persona="program_lead" aria-pressed="true"><span class="persona-icon" aria-hidden="true">PL</span><span><strong>Program Lead</strong><small>Program decisions and partner coordination</small></span></button>
+          <button class="persona" type="button" data-persona="formulation_scientist" aria-pressed="false"><span class="persona-icon" aria-hidden="true">FS</span><span><strong>Formulation Scientist</strong><small>Stability, assay, and formulation work</small></span></button>
+          <button class="persona" type="button" data-persona="clinical_operations_lead" aria-pressed="false"><span class="persona-icon" aria-hidden="true">CO</span><span><strong>Clinical Operations Lead</strong><small>Fictional protocol and cohort operations</small></span></button>
+          <button class="persona" type="button" data-persona="authorized_external_partner" aria-pressed="false"><span class="persona-icon" aria-hidden="true">EP</span><span><strong>Authorized External Partner</strong><small>Only explicitly cleared partner context</small></span></button>
+        </div>
+        <div class="workspace-label prompt-label"><span>2</span><strong>Start from a business intent</strong><small>Edit the example freely; changing words never expands authority.</small></div>
+        <div id="prompt-chips" class="prompt-chips" role="group" aria-label="Example prompts for selected persona"></div>
+      </div>
+
+      <form id="demo-form" class="run-bar">
+        <div class="run-context"><strong id="selected-label">Program Lead</strong><span id="selected-detail">Current program status · server-mapped synthetic role</span></div>
+        <div class="composer-fields">
+          <label class="field" for="query"><span class="field-label">Ask Gluevenir Bio</span>
+            <textarea id="query" name="query" maxlength="280" required></textarea>
+            <span id="query-count" class="count">0 / 280</span>
+          </label>
+        </div>
+        <div class="composer-actions">
+          <p class="input-note"><span class="compact-synthetic">Synthetic demo</span> Prompts are bounded, scanned, and omitted from application logs.</p>
+          <button id="run-demo" class="run" type="submit">Ask Gluevenir Bio</button>
+        </div>
+      </form>
+
+      <div id="status-announcer" class="sr-only" role="status" aria-live="polite"></div>
+      <div class="result" id="result" aria-busy="false" hidden>
+        <div class="status">
+          <span id="mode" class="mode" data-mode="ready"><span class="dot" aria-hidden="true"></span><span id="mode-label">Ready for a governed request</span></span>
+          <span id="mode-detail">Submit the selected business intent to request a live bounded result.</span>
+        </div>
+        <div class="conversation">
+          <article class="chat-turn user-turn" aria-label="Synthetic user prompt">
+            <span class="avatar" aria-hidden="true">YOU</span>
+            <div class="message"><span id="persona-label" class="speaker">Internal program lead</span><p id="user-prompt" class="prompt"></p></div>
+          </article>
+
+          <section id="governance-stream" class="governance-stream" aria-label="Governance progress">
+            <div class="governance-head"><strong>Governance stream</strong><span>Verified public stages</span></div>
+            <ol id="governance-steps"></ol>
+          </section>
+
+          <section id="intercept" class="intercept" aria-label="Memory Action Gateway decision" hidden>
+            <div class="intercept-head"><strong>Memory Action Gateway</strong><span>Before the model</span></div>
+            <div class="memory-path">
+              <div class="memory-card"><span class="tag">Candidate memory</span><strong id="memory-source"></strong></div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="memory-card approved"><span class="tag">Authorized context</span><strong id="memory-approved"></strong></div>
+            </div>
+            <div class="decision-line"><span id="pill" class="pill" data-decision="ALLOW">ALLOW</span><p id="gateway-copy" class="gateway-copy"></p></div>
+          </section>
+
+          <article id="agent-turn" class="chat-turn agent-turn outcome" aria-labelledby="outcome-title" hidden>
+            <span class="avatar" aria-hidden="true">GV</span>
+            <div class="message">
+              <span class="speaker">Gluevenir Bio · <span id="effect">Authorized execution</span></span>
+              <h3 id="outcome-title">Internal memory improves the answer</h3>
+              <p id="summary" class="summary"></p>
+              <p class="boundary"><span class="check" aria-hidden="true">✓</span><span id="boundary"></span></p>
+            </div>
+          </article>
+
+          <details class="receipt" hidden>
+            <summary><span class="receipt-head"><strong id="receipt-title">Signed Recall Receipt</strong><span class="safe">Content-safe proof</span></span><span id="proof-summary" class="proof-summary">Example only · send the request to verify</span></summary>
+            <dl>
+              <div><dt>Receipt ID</dt><dd id="receipt-id"></dd></div>
+              <div><dt>Decision / reason</dt><dd id="receipt-decision"></dd></div>
+              <div><dt>Included memory IDs</dt><dd id="included-ids"></dd></div>
+              <div><dt>Content hashes</dt><dd id="content-hashes"></dd></div>
+              <div><dt>Action hash</dt><dd id="action-hash"></dd></div>
+              <div><dt>Policy hash</dt><dd id="policy-hash"></dd></div>
+              <div><dt>Exclusions</dt><dd id="exclusions"></dd></div>
+              <div><dt>Signing key</dt><dd id="key-id"></dd></div>
+              <div><dt>Signature</dt><dd><span id="verification" class="verify" data-verified="false"></span></dd></div>
+            </dl>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="memory-library" class="memory-library controls" aria-labelledby="memory-library-title">
+      <div class="controls-head library-head">
+        <div><p class="kicker">Synthetic Memory Library</p><h2 id="memory-library-title">Browse what the demo can remember.</h2></div>
+        <p>HelixCure Synthetic Labs is advancing HX-17, a wholly fictional investigational monoclonal antibody intended to treat a rare complement-mediated inflammatory disorder. Its simulated Phase 1 program follows protocol HC-HX17-101 v1.3, formulation HX17-F3, enrollment at Harborlight Research Center Site SYN-03, and partner communications with Argent Bridge Biologics. Browse its synthetic protocol records, stability work, cohort updates, approvals, partner releases, and lifecycle events. Persona focus organizes the library only; the Memory Action Gateway decides runtime access independently.</p>
+      </div>
+      <div class="library-toolbar" aria-label="Synthetic Memory Library filters">
+        <div class="library-modes" role="group" aria-label="Memory Library view">
+          <button type="button" data-library-mode="persona" aria-pressed="true">Persona focus</button>
+          <button type="button" data-library-mode="fixture" aria-pressed="false">All synthetic records</button>
+        </div>
+        <label class="library-search-label">Search<input id="library-search" type="search" maxlength="120" placeholder="Search titles and visible details"></label>
+        <label>Persona<select id="library-persona">
+          <option value="program_lead">Program Lead</option>
+          <option value="formulation_scientist">Formulation Scientist</option>
+          <option value="clinical_operations_lead">Clinical Operations Lead</option>
+          <option value="authorized_external_partner">Authorized External Partner</option>
+        </select></label>
+        <label>Workstream<select id="library-workstream"><option value="all">All workstreams</option></select></label>
+        <label>Lifecycle<select id="library-state"><option value="all">All lifecycle states</option></select></label>
+        <label>Room<select id="library-room"><option value="all">All rooms</option></select></label>
+        <label>Source<select id="library-source"><option value="all">All sources</option></select></label>
+      </div>
+      <p id="library-boundary" class="library-boundary"><strong>Persona focus:</strong> an editorial browsing cue only. It never grants memory access or changes a gateway decision.</p>
+      <div class="memory-browser">
+        <section class="memory-list-pane" aria-label="Synthetic memory records">
+          <div id="memory-grid" class="memory-list" aria-live="polite"><p class="library-loading">Loading the wholly fictional memory catalog…</p></div>
+          <nav class="memory-pagination" aria-label="Synthetic memory pages">
+            <button id="memory-prev" type="button">Previous</button>
+            <span id="memory-page-status">Loading records…</span>
+            <button id="memory-next" type="button">Next</button>
+          </nav>
+        </section>
+        <aside id="memory-detail" class="memory-detail" aria-live="polite"><p class="library-loading">Choose a record to inspect its fictional details and realism basis.</p></aside>
+      </div>
+      <div id="source-basis" class="source-basis"><h3>Public realism references</h3><p>Authoritative public sources inform generic terminology and record structure only. HelixCure, HX-17, every person, protocol, result, decision, and approval are fictional; no source endorses this demo.</p><ul id="source-list"></ul></div>
+    </section>
+
+    <section id="observability" class="observability controls" aria-labelledby="observability-title">
+      <div class="controls-head observability-head">
+        <div><p class="kicker">Live, content-safe evidence</p><h2 id="observability-title">See governed memory at work.</h2></div>
+        <p>Explore aggregate outcomes, fixed persona views, and request traces. Telemetry contains bounded stages, decisions, counts, verification flags, and duration. It never contains prompts, answers, memory content, or customer identifiers.</p>
+      </div>
+      <div class="telemetry-notice"><span class="synthetic-badge">Synthetic telemetry only</span><span id="observability-status">Checking the read-only viewer…</span></div>
+      <nav id="dashboard-links" class="dashboard-links" aria-label="Observability views">
+        <a href="#" data-dashboard-view="overview">Overview</a>
+        <a href="#" data-dashboard-view="program_lead">Program Lead</a>
+        <a href="#" data-dashboard-view="formulation_scientist">Formulation Scientist</a>
+        <a href="#" data-dashboard-view="clinical_operations_lead">Clinical Operations</a>
+        <a href="#" data-dashboard-view="authorized_external_partner">External Partner</a>
+        <a href="#" data-dashboard-view="traces">Live traces</a>
+      </nav>
+      <div class="dashboard-frame-shell">
+        <div class="dashboard-frame-head"><strong id="dashboard-title">Governance overview</strong><a id="dashboard-open" href="#" target="_blank" rel="noreferrer" aria-disabled="true">Open full view ↗</a></div>
+        <iframe id="dashboard-frame" title="Gluevenir synthetic telemetry dashboard" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
+        <div id="dashboard-placeholder" class="dashboard-placeholder"><strong>Read-only observability preview</strong><p>The embedded viewer becomes available in local Compose or after the dedicated hosted observability URL is configured.</p></div>
+      </div>
+    </section>
+
+    <section class="disclosure" aria-label="Scope and trust boundaries">
+      <article><h3>AARM-inspired, deliberately bounded</h3><p>The gateway maps AARM-inspired evidence to supported memory-mediated actions only. This demonstration does not claim AARM conformance, certification, or universal agent interception.</p></article>
+      <article><h3>AIUC-1 evidence, not certification</h3><p>The prototype produces evidence relevant to selected AIUC-1 controls. It is not AIUC-1 certified, conformant, assessed, audit-ready, or a substitute for organizational and legal controls.</p></article>
+      <article><h3>Development-key trust model</h3><p>Receipts are signed, content-bound, and independently verifiable within the documented development-key trust model. That boundary does not protect against an administrator controlling both storage and key.</p></article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <svg class="gluevenir-mark" aria-hidden="true"><use href="#gluevenir-symbol"/></svg>
+        <p><strong>Gluevenir Bio</strong> is an ObsidianTek synthetic training demonstration. Automated detection is imperfect; labels are policy candidates, not legal classifications.</p>
+      </div>
+      <nav class="footer-links" aria-label="ObsidianTek and creator links">
+        <a href="./compliance.html">Compliance mappings</a>
+        <a href="https://www.obsidiantek.io/?utm_source=gluevenir&amp;utm_medium=referral&amp;utm_campaign=agentic_memory_hackathon" target="_blank" rel="noreferrer">ObsidianTek home ↗</a>
+        <a href="https://www.linkedin.com/company/obsidiantek/" target="_blank" rel="noreferrer">ObsidianTek on LinkedIn ↗</a>
+        <a href="https://www.linkedin.com/in/kris-musard/" target="_blank" rel="noreferrer">Kris Musard on LinkedIn ↗</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+    const API_URL=document.querySelector('meta[name="gluevenir-api-url"]').content.trim();
+    const OBSERVABILITY_URL=document.querySelector('meta[name="gluevenir-observability-url"]').content.trim();
+    const OBSERVABILITY_MODE=document.querySelector('meta[name="gluevenir-observability-mode"]').content.trim();
+    const CATALOG_URL="./demo-catalog.json";
+    const MEMORY_PAGE_SIZE=12;
+    const MOBILE_MEMORY_PAGE_SIZE=4;
+    const mobileLibrary=window.matchMedia("(max-width: 48rem)");
+    const currentMemoryPageSize=()=>mobileLibrary.matches ? MOBILE_MEMORY_PAGE_SIZE : MEMORY_PAGE_SIZE;
+    const decisions=new Set(["ALLOW","MODIFY","STEP_UP","DEFER","DENY"]);
+    const answerDecisions=new Set(["ALLOW","MODIFY"]);
+    const pendingDecisions=new Set(["STEP_UP","DEFER"]);
+    const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
+    const hash=/^[0-9a-f]{64}$/;
+    const identifier=/^[a-z][a-z0-9_-]{0,63}$/;
+    const publicKey=/^[a-zA-Z0-9._:-]{1,128}$/;
+    const reason=/^[A-Z0-9_]{1,48}$/;
+    const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const personaTokens=Object.freeze({
+      program_lead:"program-lead-synthetic",
+      formulation_scientist:"formulation-scientist-synthetic",
+      clinical_operations_lead:"clinical-operations-synthetic",
+      authorized_external_partner:"external-partner-synthetic"
+    });
+    const hostedDashboardPaths=Object.freeze({
+      overview:"/public-dashboards/9e978d5eafa627ea61946044a80f3a41",
+      program_lead:"/public-dashboards/9ab2bc2d01e29b2c642e14ccba48b9de",
+      formulation_scientist:"/public-dashboards/df2d55ae6508a21e8f5f0a083cb455ed",
+      clinical_operations_lead:"/public-dashboards/ba2e6408c254887fc6567c71efa533f0",
+      authorized_external_partner:"/public-dashboards/e8827e00c81371176c524f34461e67d8",
+      traces:"/jaeger/search?service=gluevenir-bio&lookback=1h&limit=20"
+    });
+    const dashboardTitles=Object.freeze({
+      overview:"Governance overview",program_lead:"Program Lead governance detail",
+      formulation_scientist:"Formulation Scientist governance detail",clinical_operations_lead:"Clinical Operations governance detail",
+      authorized_external_partner:"Authorized External Partner governance detail",traces:"Live request traces"
+    });
+    const decisionCopy=Object.freeze({
+      ALLOW:{effect:"Authorized memory used",title:"The agent answers with authorized context",source:"Scoped candidate memories matched the request.",approved:"Active authorized context may reach Amazon Bedrock.",gateway:"Server-owned identity and task scope matched before recall.",boundary:"Tenant, program, purpose, audience, lifecycle, and content binding were enforced before execution."},
+      MODIFY:{effect:"Exact approved substitution",title:"Useful answer out. Restricted knowledge stays in.",source:"A restricted source matched the business intent.",approved:"An exact active human-approved Safe Derivative replaces it.",gateway:"The restricted source is stopped before the model and only its approved derivative may proceed.",boundary:"Source, derivative, reviewer, scopes, policy, expiry, and content bindings were verified before use."},
+      STEP_UP:{effect:"Human review required",title:"The agent pauses for an authorized human",source:"The proposed use requires explicit review.",approved:"No memory recall or model call occurs while pending.",gateway:"The action is bound to its exact proposal and held for an authorized reviewer.",boundary:"The unresolved action has zero execution side effects and defaults to DENY on timeout."},
+      DEFER:{effect:"Trusted context required",title:"The agent asks for context before acting",source:"Required server-owned task context is missing.",approved:"No memory recall or model call occurs while unresolved.",gateway:"The action pauses until trusted context can support a fresh policy evaluation.",boundary:"The pending action remains bound to the original intent and defaults to DENY on timeout."},
+      DENY:{effect:"Boundary enforced",title:"Unauthorized memory never enters retrieval",source:"The requested use failed a deterministic boundary.",approved:"Vector recall and model invocation do not execute.",gateway:"The request is rejected before protected memory or model execution.",boundary:"No protected-memory mutation, retrieval, or model execution occurs; content-safe audit evidence is recorded."}
+    });
+    const eventPayloadKeys=Object.freeze({
+      "context.bound":[],"policy.decided":["decision","reason_code"],
+      "memory.authorized":["excluded_count","included_count"],
+      "boundary.enforced":["decision","reason_code"],"pending.created":["kind","pending_action_id"],
+      "answer.ready":["characters"],"answer.delta":["final","index","text"],
+      "receipt.verified":["receipt_id","verified"],"turn.complete":["decision"]
+    });
+    const $=selector=>document.querySelector(selector);
+    const el={
+      form:$("#demo-form"),result:$("#result"),run:$("#run-demo"),query:$("#query"),queryCount:$("#query-count"),receipt:$(".receipt"),
+      selectedLabel:$("#selected-label"),selectedDetail:$("#selected-detail"),personaLabel:$("#persona-label"),userPrompt:$("#user-prompt"),
+      mode:$("#mode"),modeLabel:$("#mode-label"),modeDetail:$("#mode-detail"),pill:$("#pill"),effect:$("#effect"),
+      memorySource:$("#memory-source"),memoryApproved:$("#memory-approved"),gatewayCopy:$("#gateway-copy"),intercept:$("#intercept"),
+      agentTurn:$("#agent-turn"),title:$("#outcome-title"),summary:$("#summary"),boundary:$("#boundary"),proofSummary:$("#proof-summary"),
+      receiptId:$("#receipt-id"),receiptDecision:$("#receipt-decision"),includedIds:$("#included-ids"),contentHashes:$("#content-hashes"),
+      actionHash:$("#action-hash"),policyHash:$("#policy-hash"),exclusions:$("#exclusions"),keyId:$("#key-id"),verification:$("#verification"),
+      announcer:$("#status-announcer"),steps:$("#governance-steps"),chips:$("#prompt-chips"),memoryGrid:$("#memory-grid"),
+      libraryBoundary:$("#library-boundary"),librarySearch:$("#library-search"),libraryPersona:$("#library-persona"),workstream:$("#library-workstream"),
+      memoryState:$("#library-state"),room:$("#library-room"),librarySource:$("#library-source"),sourceList:$("#source-list"),memoryDetail:$("#memory-detail"),
+      memoryPrev:$("#memory-prev"),memoryNext:$("#memory-next"),memoryPageStatus:$("#memory-page-status"),dashboardFrame:$("#dashboard-frame"),
+      dashboardPlaceholder:$("#dashboard-placeholder"),dashboardOpen:$("#dashboard-open"),dashboardTitle:$("#dashboard-title"),observabilityStatus:$("#observability-status")
+    };
+    const state={catalog:null,persona:"program_lead",journey:null,libraryMode:"persona",libraryPage:1,selectedMemoryKey:null,requestSerial:0,busy:false};
+    const boundedText=(value,max=500)=>typeof value==="string" && value.length>0 && value.length<=max && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value) ? value : null;
+    const boundedList=(value,pattern,max=5)=>Array.isArray(value) && value.length<=max && value.every(item=>typeof item==="string" && pattern.test(item)) ? value : null;
+    const catalogToken=/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$/;
+    const shortListText=/^[^\u0000-\u001f\u007f]{1,160}$/;
+    const sameKeys=(value,expected)=>value && typeof value==="object" && !Array.isArray(value) && Object.keys(value).sort().join("|")===expected.slice().sort().join("|");
+    const delay=milliseconds=>reducedMotion ? Promise.resolve() : new Promise(resolve=>window.setTimeout(resolve,milliseconds));
+
+    function validateCatalog(value) {
+      if (!value || typeof value!=="object" || value.schema_version!==2 || value.synthetic_data!==true || !Array.isArray(value.personas) || value.personas.length!==4 ||
+          !Array.isArray(value.journeys) || value.journeys.length!==20 || !Array.isArray(value.memories) || !Array.isArray(value.sources)) throw new Error("catalog_invalid");
+      const browse=value.browse;
+      if (!sameKeys(browse,["default_hierarchy","default_view","page_size","sticky_filters"]) || browse.default_view!=="split-list-detail" || browse.page_size!==MEMORY_PAGE_SIZE ||
+          !Array.isArray(browse.default_hierarchy) || browse.default_hierarchy.join("|")!=="persona|workstream" || !Array.isArray(browse.sticky_filters) ||
+          browse.sticky_filters.join("|")!=="search|persona|workstream|status|room|source") throw new Error("catalog_invalid");
+      const personas=new Map();
+      value.personas.forEach(persona=>{
+        if (!identifier.test(persona.persona_id) || !boundedText(persona.display_name,80) || !boundedText(persona.person_name,100) || !boundedText(persona.organization,120) ||
+            !identifier.test(persona.default_journey_id) || !boundedList(persona.featured_workstreams,identifier,4) || persona.featured_workstreams.length!==1 ||
+            persona.synthetic_data!==true || personas.has(persona.persona_id)) throw new Error("catalog_invalid");
+        personas.set(persona.persona_id,persona);
+      });
+      if (Object.keys(personaTokens).some(id=>!personas.has(id))) throw new Error("catalog_invalid");
+      const sources=new Map();
+      value.sources.forEach(source=>{
+        let url; try { url=new URL(source.url); } catch { throw new Error("catalog_invalid"); }
+        if (url.protocol!=="https:" || !identifier.test(source.source_key) || sources.has(source.source_key) || !boundedText(source.publisher,100) || !boundedText(source.title,200) ||
+            !boundedList(source.used_for,shortListText,6) || source.generic_structure_only!==true || source.endorsement!==false) throw new Error("catalog_invalid");
+        sources.set(source.source_key,source);
+      });
+      const journeys=new Map();
+      value.journeys.forEach(journey=>{
+        if (!identifier.test(journey.journey_id) || !personas.has(journey.persona_id) || !boundedText(journey.label,100) || !boundedText(journey.prompt,280) || !boundedText(journey.situation,300) ||
+            journey.synthetic_data!==true || !boundedList(journey.source_keys,identifier,4) || journey.source_keys.some(key=>!sources.has(key)) || journeys.has(journey.journey_id)) throw new Error("catalog_invalid");
+        journeys.set(journey.journey_id,journey);
+      });
+      personas.forEach(persona=>{ if (!journeys.has(persona.default_journey_id) || journeys.get(persona.default_journey_id).persona_id!==persona.persona_id || value.journeys.filter(journey=>journey.persona_id===persona.persona_id).length!==5) throw new Error("catalog_invalid"); });
+      const memoryKeys=new Set();
+      value.memories.forEach(memory=>{
+        const stringFields=["catalog_key","title","workstream","record_type","room","status","realism_note","effective_date","program"];
+        const detailEntries=memory.details && typeof memory.details==="object" && !Array.isArray(memory.details) ? Object.entries(memory.details) : null;
+        if (memory.synthetic_data!==true || stringFields.some(name=>!boundedText(memory[name],240)) || memoryKeys.has(memory.catalog_key) ||
+            !(memory.summary===null || boundedText(memory.summary,1200)) || !/^\d{4}-\d{2}-\d{2}$/.test(memory.effective_date) ||
+            !detailEntries || detailEntries.length>16 || detailEntries.some(([name,detail])=>!identifier.test(name) || !boundedText(detail,240)) ||
+            !boundedList(memory.data_classes,catalogToken,8) ||
+            !boundedList(memory.source_keys,identifier,4) || memory.source_keys.some(key=>!sources.has(key))) throw new Error("catalog_invalid");
+        memoryKeys.add(memory.catalog_key);
+      });
+      return {...value,_personas:personas,_journeys:journeys,_sources:sources};
+    }
+
+    function selectPersona(personaId) {
+      if (state.busy || !state.catalog?._personas.has(personaId)) return;
+      state.persona=personaId;
+      document.querySelectorAll(".persona").forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.persona===personaId)));
+      el.libraryPersona.value=personaId;
+      const persona=state.catalog._personas.get(personaId);
+      const personaButton=document.querySelector(`.persona[data-persona="${personaId}"]`); const personaDescription=personaButton?.querySelector("small");
+      if (personaDescription) personaDescription.textContent=`${persona.person_name} · ${persona.organization}`;
+      const current=state.journey && state.catalog._journeys.get(state.journey);
+      selectJourney(current?.persona_id===personaId ? current.journey_id : persona.default_journey_id);
+      renderLibrary();
+    }
+
+    function selectJourney(journeyId) {
+      if (state.busy) return;
+      const journey=state.catalog?._journeys.get(journeyId);
+      if (!journey || journey.persona_id!==state.persona) return;
+      state.journey=journeyId;
+      renderJourneyChips();
+      const persona=state.catalog._personas.get(state.persona);
+      el.selectedLabel.textContent=`${persona.person_name} · ${persona.display_name}`;
+      el.selectedDetail.textContent=`${persona.organization} · ${journey.label}`;
+      el.query.value=journey.prompt;
+      updateQueryCount();
+      el.result.hidden=true;
+    }
+
+    function renderJourneyChips() {
+      el.chips.replaceChildren();
+      state.catalog.journeys.filter(item=>item.persona_id===state.persona).forEach(journey=>{
+        const button=document.createElement("button");
+        button.type="button"; button.className="prompt-chip"; button.dataset.journey=journey.journey_id;
+        button.setAttribute("aria-pressed",String(journey.journey_id===state.journey)); button.textContent=journey.label; button.title=journey.situation;
+        button.addEventListener("click",()=>selectJourney(journey.journey_id)); el.chips.append(button);
+      });
+    }
+
+    function updateQueryCount() { el.queryCount.textContent=`${el.query.value.length} / 280`; }
+    function setBusy(value) {
+      state.busy=value; el.run.disabled=value;
+      document.querySelectorAll(".persona,.prompt-chip").forEach(button=>{ button.disabled=value; });
+      el.run.textContent=value ? "Evaluating memory…" : "Ask Gluevenir Bio";
+      el.result.setAttribute("aria-busy",String(value)); el.result.classList.toggle("is-running",value);
+    }
+    function addStep(label,stateName="complete",detail="") {
+      const item=document.createElement("li"); item.className="governance-step"; item.dataset.state=stateName;
+      const copy=document.createElement("span"); copy.textContent=label; const small=document.createElement("small"); small.textContent=detail;
+      item.append(copy,small); el.steps.append(item); return item;
+    }
+    function beginTurn(query) {
+      el.result.hidden=false; el.result.dataset.state="running"; delete el.result.dataset.decision; el.receipt.hidden=true; el.intercept.hidden=true; el.agentTurn.hidden=true;
+      el.steps.replaceChildren(); el.personaLabel.textContent=state.catalog._personas.get(state.persona).display_name; el.userPrompt.textContent=query;
+      el.mode.dataset.mode="waiting"; el.modeLabel.textContent="Agent is working"; el.modeDetail.textContent="Matching the request to authorized context.";
+      addStep("Request received","complete",""); addStep("Finding the right context","waiting","");
+      el.announcer.textContent="The agent is finding the right authorized context.";
+      el.result.scrollIntoView({behavior:reducedMotion?"auto":"smooth",block:"nearest"});
+    }
+    function applyDecisionFrame(decision,reasonCode) {
+      const copy=decisionCopy[decision]; el.result.dataset.decision=decision; el.intercept.hidden=false; el.pill.dataset.decision=decision; el.pill.textContent=decision;
+      el.memorySource.textContent=copy.source; el.memoryApproved.textContent=copy.approved; el.gatewayCopy.textContent=`${copy.gateway} Policy reason: ${reasonCode.replaceAll("_"," ").toLowerCase()}.`;
+      el.effect.textContent=copy.effect; el.title.textContent=copy.title; el.boundary.textContent=copy.boundary;
+    }
+    function renderReceipt(result) {
+      const receipt=result.receipt; el.receiptId.textContent=receipt.id; el.receiptDecision.textContent=`${result.decision} / ${receipt.reason}`;
+      el.includedIds.textContent=receipt.includedIds.length ? receipt.includedIds.join(" · ") : "None";
+      el.contentHashes.textContent=receipt.contentHashes.length ? receipt.contentHashes.join(" · ") : "None";
+      el.actionHash.textContent=receipt.actionHash; el.policyHash.textContent=receipt.policyHash; el.exclusions.textContent=receipt.exclusions;
+      el.keyId.textContent=receipt.keyId; el.verification.dataset.verified="true"; el.verification.textContent="API reports verified";
+      el.proofSummary.textContent=`${result.decision} · signed and API-verified`; el.receipt.hidden=false;
+    }
+
+    function parseReceipt(receipt,decision) {
+      if (!receipt || typeof receipt!=="object" || receipt.decision!==decision || receipt.signature_verified!==true || !uuid.test(receipt.receipt_id||"") ||
+          !reason.test(receipt.reason_code||"") || !boundedList(receipt.included_memory_ids,uuid) || !boundedList(receipt.included_content_sha256,hash) ||
+          receipt.included_memory_ids.length!==receipt.included_content_sha256.length || !hash.test(receipt.action_arguments_sha256||"") ||
+          !hash.test(receipt.policy_sha256||"") || !publicKey.test(receipt.agent_signing_key_id||"")) throw new Error("response_invalid");
+      const counts=receipt.exclusion_counts;
+      if (!counts || typeof counts!=="object" || Array.isArray(counts) || Object.keys(counts).length>4 ||
+          Object.entries(counts).some(([name,count])=>!reason.test(name) || !Number.isInteger(count) || count<1 || count>10000)) throw new Error("response_invalid");
+      const exclusions=Object.entries(counts).map(([name,count])=>`${count} ${name.toLowerCase().replaceAll("_"," ")}`).join(" · ");
+      return {id:receipt.receipt_id,reason:receipt.reason_code,includedIds:receipt.included_memory_ids,contentHashes:receipt.included_content_sha256,
+        actionHash:receipt.action_arguments_sha256,policyHash:receipt.policy_sha256,exclusions:exclusions||"0 · no public exclusions reported",
+        exclusionValues:Object.values(counts),keyId:receipt.agent_signing_key_id};
+    }
+
+    function parseEvents(events,turnId,requestId,decision,summary,receipt,pendingId) {
+      if (!Array.isArray(events) || events.length<4 || events.length>32) throw new Error("events_invalid");
+      let previous=1; let answer=""; let answerCount=0; let finalDelta=false;
+      const exclusionTotal=receipt.exclusionValues.reduce((total,count)=>total+count,0);
+      const parsed=events.map(event=>{
+        if (!sameKeys(event,["schema","turn_id","request_id","sequence","source","type","state","public"]) || event.schema!=="gluevenir.demo.event.v1" ||
+            event.turn_id!==turnId || event.request_id!==requestId || event.state!=="complete" || !Number.isInteger(event.sequence) || event.sequence!==previous+1 ||
+            !new Set(["api","presentation"]).has(event.source) || !(event.type in eventPayloadKeys) || !sameKeys(event.public,eventPayloadKeys[event.type])) throw new Error("events_invalid");
+        previous=event.sequence;
+        if ((event.type==="answer.delta") !== (event.source==="presentation")) throw new Error("events_invalid");
+        if (event.type==="policy.decided" && (event.public.decision!==decision || event.public.reason_code!==receipt.reason)) throw new Error("events_invalid");
+        if (event.type==="boundary.enforced" && (event.public.decision!==decision || event.public.reason_code!==receipt.reason)) throw new Error("events_invalid");
+        if (event.type==="turn.complete" && event.public.decision!==decision) throw new Error("events_invalid");
+        if (event.type==="memory.authorized" && (!Number.isInteger(event.public.included_count) || !Number.isInteger(event.public.excluded_count) ||
+            event.public.included_count!==receipt.includedIds.length || event.public.excluded_count!==exclusionTotal)) throw new Error("events_invalid");
+        if (event.type==="pending.created" && (event.public.kind!==decision || event.public.pending_action_id!==pendingId)) throw new Error("events_invalid");
+        if (event.type==="answer.ready" && event.public.characters!==Array.from(summary).length) throw new Error("events_invalid");
+        if (event.type==="receipt.verified" && (event.public.receipt_id!==receipt.id || event.public.verified!==true)) throw new Error("events_invalid");
+        if (event.type==="answer.delta") { if (!answerDecisions.has(decision) || !boundedText(event.public.text,120) || event.public.index!==answerCount || typeof event.public.final!=="boolean" || finalDelta) throw new Error("events_invalid"); answer+=event.public.text; answerCount+=1; finalDelta=event.public.final; }
+        return event;
+      });
+      const types=parsed.map(event=>event.type);
+      const expectedPrefix=types[0]==="context.bound" && types[1]==="policy.decided";
+      const expectedMiddle=answerDecisions.has(decision) ? types[2]==="memory.authorized" && types[3]==="answer.ready" && answerCount>0 && finalDelta :
+        pendingDecisions.has(decision) ? types[2]==="pending.created" : types[2]==="boundary.enforced";
+      const exactMiddle=answerDecisions.has(decision) ? types.slice(4,-2).every(type=>type==="answer.delta") : types.length===5;
+      if (!expectedPrefix || !expectedMiddle || types.at(-2)!=="receipt.verified" || types.at(-1)!=="turn.complete" ||
+          !exactMiddle || (answerDecisions.has(decision) ? answer!==summary : answerCount!==0)) throw new Error("events_invalid");
+      return parsed;
+    }
+
+    function parsePublicResponse(payload,turnId) {
+      if (!payload || typeof payload!=="object" || !publicKey.test(payload.request_id||"")) throw new Error("response_invalid");
+      const view=payload.public_result; const decision=view?.decision; const summary=boundedText(view?.public_summary,500);
+      if (!view || !decisions.has(decision) || !summary) throw new Error("response_invalid");
+      const receipt=parseReceipt(view.public_receipt,decision);
+      if (!answerDecisions.has(decision) && receipt.includedIds.length) throw new Error("response_invalid");
+      const pendingId=view.pending_action_id;
+      if (pendingDecisions.has(decision)!==Boolean(pendingId) || (pendingId && !uuid.test(pendingId))) throw new Error("response_invalid");
+      const events=parseEvents(payload.public_events,turnId,payload.request_id,decision,summary,receipt,pendingId);
+      return {decision,summary,receipt,events,requestId:payload.request_id,pendingId};
+    }
+
+    async function presentResult(result,serial) {
+      el.mode.dataset.mode="live"; el.modeLabel.textContent="Live agent response";
+      el.modeDetail.textContent="Progress is presented in order from one validated API response.";
+      el.steps.replaceChildren();
+      for (const event of result.events) {
+        if (serial!==state.requestSerial) return;
+        await delay(event.type==="answer.delta" ? 65 : 190);
+        if (event.type==="context.bound") addStep("Context matched","complete","right persona · right task");
+        else if (event.type==="policy.decided") { applyDecisionFrame(result.decision,event.public.reason_code); if (!answerDecisions.has(result.decision)) addStep(result.decision==="DENY" ? "Boundary recognized" : "Next step identified","complete",""); }
+        else if (event.type==="memory.authorized") { el.memorySource.textContent=`${event.public.included_count+event.public.excluded_count} candidate memories evaluated.`; el.memoryApproved.textContent=`${event.public.included_count} authorized ${event.public.included_count===1?"memory":"memories"} may reach Amazon Bedrock.`; addStep("Useful memory found","complete",`${event.public.included_count} ready for this task`); addStep("Recall approved","complete","authorized context only"); }
+        else if (event.type==="boundary.enforced") { el.agentTurn.hidden=false; el.summary.textContent=result.summary; addStep("Protected context stayed protected","complete","no restricted execution"); }
+        else if (event.type==="pending.created") { el.agentTurn.hidden=false; el.summary.textContent=result.summary; addStep(result.decision==="STEP_UP" ? "Human decision requested" : "Trusted context requested","complete","request safely paused"); }
+        else if (event.type==="answer.ready") { el.agentTurn.hidden=false; el.summary.textContent=""; }
+        else if (event.type==="answer.delta") { el.summary.textContent+=event.public.text; }
+        else if (event.type==="receipt.verified") { renderReceipt(result); addStep("Proof attached","complete","open for technical detail"); }
+        else if (event.type==="turn.complete") { if (!answerDecisions.has(result.decision)) { el.agentTurn.hidden=false; el.summary.textContent=result.summary; } addStep(answerDecisions.has(result.decision) ? "Answer ready" : "Safe next step ready","complete",result.decision); }
+      }
+      el.announcer.textContent=`Agent response complete. Decision ${result.decision}. Technical proof is available.`;
+    }
+
+    function renderFailure(code) {
+      const guardrailBlocked=code==="bedrock_guardrail_intervened"; const scannerBlocked=code==="unsafe_input"; const inputBlocked=guardrailBlocked||scannerBlocked;
+      el.result.dataset.state="error"; delete el.result.dataset.decision;
+      el.modeLabel.textContent=guardrailBlocked ? "Amazon Bedrock Guardrails stopped this request" : scannerBlocked ? "Input stopped before memory access" : "Live request unavailable";
+      el.modeDetail.textContent=inputBlocked ? "No Memory Action Gateway decision, retrieval, model generation, or Recall Receipt was produced." : "No deterministic substitute or live result is being shown.";
+      const waiting=el.steps.lastElementChild; waiting.dataset.state="error";
+      waiting.firstElementChild.textContent=guardrailBlocked ? "Amazon Bedrock Guardrails blocked the input" : scannerBlocked ? "Deterministic input scan stopped the request" : "The live API did not return a valid bounded result";
+      waiting.lastElementChild.textContent=guardrailBlocked ? "before memory access" : "no result";
+      if (guardrailBlocked) addStep("Configured protections include hate, insults, sexual content, violence, misconduct, email, phone, and US Social Security numbers","error","one or more matched");
+      el.announcer.textContent=el.modeLabel.textContent; el.receipt.hidden=true; el.intercept.hidden=true; el.agentTurn.hidden=true;
+    }
+
+    function populateFilter(select,values,label) {
+      values.sort().forEach(value=>{ const option=document.createElement("option"); option.value=value; option.textContent=value.replaceAll("_"," "); select.append(option); });
+      select.firstElementChild.textContent=`All ${label}`;
+    }
+    function renderSources() {
+      el.sourceList.replaceChildren(); state.catalog.sources.forEach(source=>{
+        if (!boundedText(source.title,160) || !boundedText(source.publisher,100)) return;
+        let url; try { url=new URL(source.url); } catch { return; } if (url.protocol!=="https:") return;
+        const item=document.createElement("li"); const link=document.createElement("a"); link.href=url.href; link.target="_blank"; link.rel="noreferrer";
+        link.textContent=`${source.publisher} · ${source.title} ↗`; item.append(link); el.sourceList.append(item);
+      });
+    }
+    function safeObservabilityBase(value) {
+      if (!value) return null;
+      try { const url=new URL(value); if (url.protocol!=="https:" || url.username || url.password || url.search || url.hash) return null; return url; } catch { return null; }
+    }
+    function configureObservability() {
+      const local=OBSERVABILITY_MODE==="local"; const ephemeral=window.location.port==="9765";
+      const hostedBase=safeObservabilityBase(OBSERVABILITY_URL); const routes=new Map();
+      if (local) {
+        const grafana=`http://127.0.0.1:${ephemeral ? "13000" : "3000"}`; const traces=`http://127.0.0.1:${ephemeral ? "17686" : "16686"}`;
+        routes.set("overview",`${grafana}/d/gluevenir-local-telemetry?orgId=1&kiosk`);
+        ["program_lead","formulation_scientist","clinical_operations_lead","authorized_external_partner"].forEach(persona=>routes.set(persona,`${grafana}/d/gluevenir-persona-governance?orgId=1&var-persona=${encodeURIComponent(persona)}&kiosk`));
+        routes.set("traces",`${traces}/search?service=gluevenir-bio&lookback=1h&limit=20`); el.observabilityStatus.textContent="Local viewer links · start Compose to preview";
+      } else if (hostedBase) {
+        Object.entries(hostedDashboardPaths).forEach(([view,path])=>routes.set(view,new URL(path,hostedBase).href));
+        el.observabilityStatus.textContent="Hosted read-only viewers";
+      } else el.observabilityStatus.textContent="Hosted viewer awaits deployment configuration";
+      const showDashboard=(view,url)=>{
+        document.querySelectorAll("[data-dashboard-view]").forEach(link=>link.setAttribute("aria-current",String(link.dataset.dashboardView===view ? "page" : "false")));
+        el.dashboardTitle.textContent=dashboardTitles[view]; el.dashboardOpen.href=url; el.dashboardOpen.setAttribute("aria-disabled","false");
+        el.dashboardFrame.dataset.dashboardView=view; el.dashboardFrame.src=url; el.dashboardFrame.title=`Gluevenir ${dashboardTitles[view]} · synthetic telemetry only`; el.dashboardFrame.hidden=false; el.dashboardPlaceholder.hidden=true;
+      };
+      document.querySelectorAll("[data-dashboard-view]").forEach(link=>{
+        const view=link.dataset.dashboardView; const url=routes.get(view);
+        if (!url) { link.setAttribute("aria-disabled","true"); link.removeAttribute("target"); return; }
+        link.href=url; link.target="_blank"; link.rel="noreferrer"; link.setAttribute("aria-disabled","false");
+        link.addEventListener("click",event=>{ if (event.metaKey || event.ctrlKey || event.shiftKey) return; event.preventDefault(); showDashboard(view,url); });
+      });
+      if (hostedBase && routes.has("overview")) showDashboard("overview",routes.get("overview"));
+    }
+    function matchingJourney(memory) {
+      return state.catalog.journeys.find(journey=>journey.persona_id===state.persona && journey.source_keys.some(value=>memory.source_keys.includes(value)));
+    }
+    function isPersonaRelevant(memory) {
+      return state.catalog._personas.get(state.persona).featured_workstreams.includes(memory.workstream);
+    }
+    function preferredLibraryMemory(page) {
+      const selected=page.find(memory=>memory.catalog_key===state.selectedMemoryKey);
+      if (selected) return selected;
+      if (state.libraryMode==="persona") {
+        const relevant=page.find(isPersonaRelevant);
+        if (relevant) return relevant;
+      }
+      return page[0]||null;
+    }
+    function renderMemoryDetail(memory) {
+      el.memoryDetail.replaceChildren();
+      if (!memory) { const empty=document.createElement("p"); empty.className="library-loading"; empty.textContent="No fictional memories match these filters."; el.memoryDetail.append(empty); return; }
+      const relevant=isPersonaRelevant(memory);
+      el.memoryDetail.dataset.relevant=String(relevant);
+      const head=document.createElement("div"); head.className="memory-detail-head";
+      const heading=document.createElement("div"); const title=document.createElement("h3"); title.textContent=memory.title;
+      const path=document.createElement("div"); path.className="memory-detail-path"; path.textContent=`${state.catalog._personas.get(state.persona).display_name}  ›  ${memory.workstream.replaceAll("_"," ")}  ›  ${memory.record_type.replaceAll("_"," ")}`;
+      heading.append(title,path); const room=document.createElement("span"); room.className="room memory-row-status"; room.textContent=memory.room.replaceAll("_"," "); head.append(heading,room);
+      const copy=document.createElement("p"); copy.className="memory-detail-copy";
+      copy.textContent=memory.summary || "Synthetic content removed; lifecycle metadata retained as a tombstone.";
+      const facts=document.createElement("dl");
+      [["Program",memory.program],["Effective date",memory.effective_date],["Workstream",memory.workstream],["Record type",memory.record_type],["Lifecycle",memory.status],["Data classes",memory.data_classes.join(" · ")]].forEach(([label,value])=>{
+        const row=document.createElement("div"); const term=document.createElement("dt"); const description=document.createElement("dd");
+        term.textContent=label; description.textContent=value.replaceAll("_"," "); row.append(term,description); facts.append(row);
+      });
+      Object.entries(memory.details).forEach(([label,value])=>{
+        const row=document.createElement("div"); const term=document.createElement("dt"); const description=document.createElement("dd");
+        term.textContent=label.replaceAll("_"," "); description.textContent=value; row.append(term,description); facts.append(row);
+      });
+      const basis=document.createElement("details"); basis.className="realism-basis"; const basisSummary=document.createElement("summary"); basisSummary.textContent="Realism basis";
+      const basisNote=document.createElement("p"); basisNote.textContent=memory.realism_note; const basisLinks=document.createElement("ul");
+      memory.source_keys.forEach(key=>{ const source=state.catalog._sources.get(key); const item=document.createElement("li"); const link=document.createElement("a"); link.href=source.url; link.target="_blank"; link.rel="noreferrer"; link.textContent=`${source.publisher} · ${source.title} ↗`; item.append(link); basisLinks.append(item); });
+      basis.append(basisSummary,basisNote,basisLinks); el.memoryDetail.append(head,copy,facts,basis);
+      const journey=matchingJourney(memory);
+      if (journey) { const button=document.createElement("button"); button.type="button"; button.className="try-memory"; button.textContent="Try a related prompt"; button.addEventListener("click",()=>{ selectJourney(journey.journey_id); $("#demo").scrollIntoView({behavior:reducedMotion?"auto":"smooth"}); }); el.memoryDetail.append(button); }
+    }
+    function renderLibrary() {
+      if (!state.catalog) return;
+      el.memoryGrid.replaceChildren();
+      const search=el.librarySearch.value.trim().toLocaleLowerCase();
+      const memories=state.catalog.memories.filter(memory=>{
+        const searchable=[memory.title,memory.workstream,memory.record_type,memory.room,memory.status,memory.program,memory.effective_date,...memory.data_classes];
+        if (memory.summary) searchable.push(memory.summary,...Object.values(memory.details));
+        return (state.libraryMode==="fixture" || isPersonaRelevant(memory)) && (el.workstream.value==="all" || memory.workstream===el.workstream.value) &&
+          (el.memoryState.value==="all" || memory.status===el.memoryState.value) && (el.room.value==="all" || memory.room===el.room.value) &&
+          (el.librarySource.value==="all" || memory.source_keys.includes(el.librarySource.value)) && (!search || searchable.some(value=>value.toLocaleLowerCase().includes(search)));
+      });
+      const pageSize=currentMemoryPageSize(); const pages=Math.max(1,Math.ceil(memories.length/pageSize)); state.libraryPage=Math.min(Math.max(1,state.libraryPage),pages);
+      const start=(state.libraryPage-1)*pageSize; const page=memories.slice(start,start+pageSize);
+      const preferred=preferredLibraryMemory(page); state.selectedMemoryKey=preferred?.catalog_key||null;
+      page.forEach((memory,index)=>{
+        const row=document.createElement("button"); row.type="button"; row.className="memory-row"; row.dataset.memoryKey=memory.catalog_key; row.setAttribute("aria-current",String(memory.catalog_key===state.selectedMemoryKey));
+        const number=document.createElement("span"); number.className="memory-row-index"; number.textContent=String(start+index+1).padStart(2,"0");
+        const copy=document.createElement("span"); copy.className="memory-row-copy"; const title=document.createElement("strong"); title.textContent=memory.title; const meta=document.createElement("small"); meta.textContent=`${memory.workstream.replaceAll("_"," ")} · ${memory.record_type.replaceAll("_"," ")}`; copy.append(title,meta);
+        const status=document.createElement("span"); status.className="memory-row-status"; status.textContent=memory.status.replaceAll("_"," "); row.append(number,copy,status);
+        row.addEventListener("click",()=>{ state.selectedMemoryKey=memory.catalog_key; el.memoryGrid.querySelectorAll(".memory-row").forEach(candidate=>candidate.setAttribute("aria-current",String(candidate===row))); renderMemoryDetail(memory); if (mobileLibrary.matches) el.memoryDetail.scrollIntoView({behavior:reducedMotion?"auto":"smooth",block:"start"}); }); el.memoryGrid.append(row);
+      });
+      if (!page.length) { const empty=document.createElement("p"); empty.className="library-loading"; empty.textContent="No fictional memories match these filters."; el.memoryGrid.append(empty); }
+      const selected=page.find(memory=>memory.catalog_key===state.selectedMemoryKey)||null; renderMemoryDetail(selected);
+      el.memoryPrev.disabled=state.libraryPage<=1; el.memoryNext.disabled=state.libraryPage>=pages;
+      el.memoryPageStatus.textContent=memories.length ? `${start+1}–${start+page.length} of ${memories.length} · page ${state.libraryPage} of ${pages}` : "0 matching records";
+      const personaName=state.catalog._personas.get(state.persona).display_name;
+      const emphasis=document.createElement("strong");
+      const explanation=document.createTextNode(state.libraryMode==="persona" ? " workstream relevance is a presentation cue only; runtime access is evaluated separately." : " complete public view of wholly fictional training records; it is never an authority source.");
+      emphasis.textContent=state.libraryMode==="persona" ? `Persona focus · ${personaName}:` : "All synthetic records:";
+      el.libraryBoundary.replaceChildren(emphasis,explanation);
+    }
+
+    async function initialize() {
+      configureObservability();
+      try {
+        const response=await fetch(CATALOG_URL,{credentials:"omit",referrerPolicy:"no-referrer",cache:"no-store"});
+        if (!response.ok) throw new Error("catalog_unavailable"); state.catalog=validateCatalog(await response.json());
+        populateFilter(el.workstream,[...new Set(state.catalog.memories.map(item=>item.workstream))],"workstreams");
+        populateFilter(el.memoryState,[...new Set(state.catalog.memories.map(item=>item.status))],"lifecycle states");
+        populateFilter(el.room,[...new Set(state.catalog.memories.map(item=>item.room))],"rooms");
+        state.catalog.sources.forEach(source=>{ const option=document.createElement("option"); option.value=source.source_key; option.textContent=source.title; el.librarySource.append(option); });
+        state.catalog.personas.forEach(persona=>{ const description=document.querySelector(`.persona[data-persona="${persona.persona_id}"] small`); if (description) description.textContent=`${persona.person_name} · ${persona.organization}`; });
+        renderSources(); selectPersona(state.persona);
+      } catch {
+        el.run.disabled=true; el.chips.textContent="The bounded synthetic catalog is unavailable. The live demo is paused.";
+        el.memoryGrid.textContent="The synthetic memory catalog could not be validated.";
+      }
+    }
+
+    document.querySelectorAll(".persona").forEach(button=>button.addEventListener("click",()=>selectPersona(button.dataset.persona)));
+    document.querySelectorAll("[data-library-mode]").forEach(button=>button.addEventListener("click",()=>{
+      state.libraryMode=button.dataset.libraryMode; state.libraryPage=1; document.querySelectorAll("[data-library-mode]").forEach(candidate=>candidate.setAttribute("aria-pressed",String(candidate===button))); renderLibrary();
+    }));
+    el.libraryPersona.addEventListener("change",()=>selectPersona(el.libraryPersona.value));
+    [el.workstream,el.memoryState,el.room,el.librarySource].forEach(select=>select.addEventListener("change",()=>{ state.libraryPage=1; renderLibrary(); }));
+    el.librarySearch.addEventListener("input",()=>{ state.libraryPage=1; renderLibrary(); });
+    el.memoryPrev.addEventListener("click",()=>{ if (state.libraryPage>1) { state.libraryPage-=1; state.selectedMemoryKey=null; renderLibrary(); } });
+    el.memoryNext.addEventListener("click",()=>{ state.libraryPage+=1; state.selectedMemoryKey=null; renderLibrary(); });
+    mobileLibrary.addEventListener("change",()=>{ if (state.catalog) { state.libraryPage=1; state.selectedMemoryKey=null; renderLibrary(); } });
+    el.query.addEventListener("input",updateQueryCount);
+    el.form.addEventListener("submit",async event=>{
+      event.preventDefault(); if (state.busy || !state.catalog || !state.journey) return;
+      const query=el.query.value.trim(); if (!query || query.length>280) return;
+      const serial=++state.requestSerial; const turnId=crypto.randomUUID(); beginTurn(query); setBusy(true);
+      try {
+        if (!API_URL) throw new Error("api_unavailable"); const endpoint=new URL(API_URL);
+        if (endpoint.protocol!=="https:" && endpoint.hostname!=="localhost") throw new Error("api_unavailable");
+        const controller=new AbortController(); const timeout=window.setTimeout(()=>controller.abort(),35000); let response;
+        try { response=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({persona:state.persona,persona_token:personaTokens[state.persona],journey_id:state.journey,query,turn_id:turnId}),signal:controller.signal,credentials:"omit",referrerPolicy:"no-referrer"}); }
+        finally { window.clearTimeout(timeout); }
+        if (!response.ok) { let code="api_error"; try { code=(await response.json())?.error?.code||code; } catch {} throw new Error(code); }
+        const result=parsePublicResponse(await response.json(),turnId); await presentResult(result,serial);
+      } catch (error) { if (serial===state.requestSerial) renderFailure(error instanceof Error ? error.message : "api_error"); }
+      finally { if (serial===state.requestSerial) { setBusy(false); el.result.setAttribute("aria-busy","false"); el.result.classList.remove("is-running"); } }
+    });
+    initialize();
+  </script>
+</body>
+</html>

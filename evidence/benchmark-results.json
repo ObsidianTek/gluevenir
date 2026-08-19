@@ -1,0 +1,32 @@
+{
+  "artifact_type": "offline_benchmark",
+  "generated_at": "2026-08-18T14:06:52.078660Z",
+  "limitations": [
+    "Offline fake-adapter timings are not production latency.",
+    "Model, network, database, and cold-start latency are excluded."
+  ],
+  "measurements": {
+    "gateway": {
+      "p50": 243.584,
+      "p95": 255.083,
+      "samples": 1000,
+      "unit": "microseconds"
+    },
+    "receipt_signing": {
+      "p50": 101.916,
+      "p95": 105.25,
+      "samples": 1000,
+      "unit": "microseconds"
+    },
+    "receipt_verification": {
+      "p50": 162.625,
+      "p95": 168.0,
+      "samples": 1000,
+      "unit": "microseconds"
+    }
+  },
+  "model_latency_included": false,
+  "network_access_required": false,
+  "schema_version": "gluevenir-evidence-v1",
+  "synthetic_data": true
+}

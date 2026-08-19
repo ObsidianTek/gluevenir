@@ -1,0 +1,51 @@
+service:
+  extensions: [jaeger_storage, jaeger_query, healthcheckv2]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [jaeger_storage_exporter]
+  telemetry:
+    resource:
+      service.name: gluevenir-jaeger
+    logs:
+      level: error
+    metrics:
+      level: none
+
+extensions:
+  jaeger_query:
+    storage:
+      traces: memory_store
+    base_path: /jaeger
+    ai:
+      enable_mcp: false
+    grpc:
+      endpoint: 127.0.0.1:16685
+    http:
+      endpoint: 127.0.0.1:16686
+  jaeger_storage:
+    backends:
+      memory_store:
+        memory:
+          max_traces: "${env:MEMORY_MAX_TRACES:-5000}"
+  healthcheckv2:
+    use_v2: true
+    http:
+      endpoint: 127.0.0.1:13134
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:14318
+
+processors:
+  batch:
+    send_batch_size: 128
+    send_batch_max_size: 256
+    timeout: 1s
+
+exporters:
+  jaeger_storage_exporter:
+    trace_storage: memory_store

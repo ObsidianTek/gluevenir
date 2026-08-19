@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title description">
+  <title id="title">Gluevenir connected-context mark</title>
+  <desc id="description">Three context nodes converge through a governed red path.</desc>
+  <path d="M15 15 32 32 15 49M32 32h17" fill="none" stroke="#f6f5f1" stroke-opacity=".48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M15 49 32 32h17" fill="none" stroke="#ef5559" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m15 8 7 4v8l-7 4-7-4v-8l7-4Z" fill="#121318" stroke="#f6f5f1" stroke-width="2"/>
+  <path d="m15 40 7 4v8l-7 4-7-4v-8l7-4Z" fill="#121318" stroke="#ef5559" stroke-width="2.4"/>
+  <path d="m49 23 7 4v8l-7 4-7-4v-8l7-4Z" fill="#121318" stroke="#ef5559" stroke-width="2.4"/>
+  <circle cx="32" cy="32" r="5.5" fill="#f6f5f1"/>
+  <circle cx="32" cy="32" r="2.5" fill="#b42026"/>
+</svg>
